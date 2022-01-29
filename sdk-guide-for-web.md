@@ -350,20 +350,20 @@ videoInstance.on("TIME_UPDATE", (currentTime) => {
 
 | Method                     | Description                                                                   |
 | -------------------------- | ----------------------------------------------------------------------------- |
-| `getMobileOperatingSystem` | <p>Get the mobile operating </p><p>system.</p>                                |
-| `getNewAccessToken`        | <p>Get new access token </p><p>and which allows </p><p>user to auto login</p> |
-| `guestLogin`               | <p>Guest login to get </p><p>access token</p>                                 |
-| `ssoLogin`                 | <p>SSO login to get </p><p>access token</p>                                   |
+| `getMobileOperatingSystem` | Get the mobile operating system.                                |
+| `getNewAccessToken`        | Get new access token and which allows user to auto login |
+| `guestLogin`               | Guest login to get access token                                 |
+| `ssoLogin`                 | SSO login to get access token                                   |
 | `registerUser`             | Register new user                                                             |
 | `loginUser`                | Login existing user                                                           |
 | `logoutUser`               | Logout user                                                                   |
-| `on`                       | <p><code>on(event, callback): void</code> </p><p>Listen for events</p>        |
+| `on`                       | <code>on(event, callback): void</code> Listen for events        |
 | `getCurrentUser`           | Get info of current user                                                      |
 | `getShareUrl`              | Get on-link sharing url                                                       |
 | `getVideoWrapper`          | Get Id of video wrapper                                                       |
-| `getRtmServer`             | <p>Get current Real time </p><p>messaging (RTM) </p><p>server instance</p>    |
+| `getRtmServer`             | Get current Real time messaging (RTM) server instance    |
 | `getHttpInstance`          | Get current HTTPS instance                                                    |
-| `createRtmServer`          | <p>Leave one/all RTM </p><p>channels or destroy </p><p>RTM instance</p>       |
+| `createRtmServer`          | Leave one/all RTM channels or destroy RTM instance       |
 | `disconnectRtmChannel`     | Get info of current user                                                      |
 | `sendMessageRTM`           | Send RTM message to channel                                                   |
 
@@ -690,14 +690,14 @@ sdkViewerInstance.sendMessageRTM("channel_test",
 
 | Method                 | Description                                                                                                       |
 | ---------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `new BeliveSdk.Viewer` | <p>Initializes the viewer </p><p>object with provided </p><p>configurations</p>                                   |
-| `getDetailStream`      | <p>Get details of a stream </p><p>and play if it's available</p>                                                  |
-| `leaveStream`          | <p>Leave current stream </p><p>(This will record </p><p>leave-team in database)</p>                               |
-| `getHistoryChat`       | <p>Get chat history for </p><p>showing in recorded stream</p>                                                     |
-| `likeStream`           | <p>Method to like current </p><p>live or recorded stream</p>                                                      |
-| `shareStream`          | <p>Method to track the </p><p>number of share button </p><p>clicked of current live </p><p>or recorded stream</p> |
-| `getPinnedMessage`     | <p>Get pinned message </p><p>which is set by host </p><p>in live stream</p>                                       |
-| `getProducts`          | <p>Get live shopping </p><p>products list with pagination</p>                                                     |
+| `new BeliveSdk.Viewer` | Initializes the viewer object with provided configurations                                   |
+| `getDetailStream`      | Get details of a stream and play if it's available                                                  |
+| `leaveStream`          | Leave current stream (This will record leave-team in database)                               |
+| `getHistoryChat`       | Get chat history for showing in recorded stream                                                     |
+| `likeStream`           | Method to like current live or recorded stream                                                      |
+| `shareStream`          | Method to track the number of share button clicked of current live or recorded stream |
+| `getPinnedMessage`     | Get pinned message which is set by host in live stream                                       |
+| `getProducts`          | Get live shopping products list with pagination                                                     |
 | `setStreamName`        | Set stream title                                                                                                  |
 | `setStreamPassword`    | Set stream password                                                                                               |
 | `getVideoPlayer`       | Get Video Player instance                                                                                         |
@@ -992,10 +992,10 @@ Set RTM threshold and limit for `optimal performance`
 
 | Method              | Description                                               |
 | ------------------- | --------------------------------------------------------- |
-| `push`              | <p>Insert new message </p><p>into queue</p>               |
-| `pushInstant`       | <p>Insert new message </p><p>direct into current list</p> |
-| `reset`             | <p>Remove all messages </p><p>and message queue</p>       |
-| `onReceiveMessages` | <p>Callback messages </p><p>after processed</p>           |
+| `push`              | Insert new message into queue               |
+| `pushInstant`       | Insert new message direct into current list |
+| `reset`             | Remove all messages and message queue       |
+| `onReceiveMessages` | Callback messages after processed           |
 | `destroy`           | Destroy instance                                          |
 
 Example
@@ -1060,10 +1060,10 @@ Terminate the instance. After destroy, the instance no longer emits events or re
 | `pause`     | Pause the video                                  |
 | `play`      | Play/resume the video                            |
 | `setMuted`  | Mute or Un-mute the video                        |
-| `setVolume` | <p>Method to set volume </p><p>of the player</p> |
-| `seekTo`    | <p>The time to seek to </p><p>in seconds</p>     |
-| `isMuted`   | <p>Check the video is </p><p>muted or not</p>    |
-| `isPaused`  | <p>Check the video is </p><p>paused or not</p>   |
+| `setVolume` | Method to set volume of the player |
+| `seekTo`    | The time to seek to in seconds     |
+| `isMuted`   | Check the video is muted or not    |
+| `isPaused`  | Check the video is paused or not   |
 
 **pause**
 
@@ -1181,10 +1181,10 @@ Example
 
 | Property  | Data type | Description                                                                                                                                                                              |
 | --------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `code`    | number    | <p>A unique number </p><p>that define an </p><p>error, See </p><p>more at </p><p>RTM Error Codes</p>                                                                                     |
+| `code`    | number    | A unique number that define an error, See more at RTM Error Codes                                                                                     |
 | `message` | string    | Error description                                                                                                                                                                        |
-| `state`   | string    | <p>The connection </p><p>state that refers </p><p>to one of the defined:<br>ABORTED<br>CONNECTING<br>RECONNECTING<br>CONNECTED<br>DISCONNECTED</p>                                       |
-| `reason`  | string    | <p>The connection reason that refers to one of the defined:<br>BANNED_BY_SERVER<br>INTERRUPTED<br>LOGIN<br>LOGIN_FAILURE<br>LOGIN_SUCCESS<br>LOGIN_TIMEOUT<br>LOGOUT<br>REMOTE_LOGIN</p> |
+| `state`   | string    | The connection state that refers to one of the defined:<br>ABORTED<br>CONNECTING<br>RECONNECTING<br>CONNECTED<br>DISCONNECTED                                       |
+| `reason`  | string    | The connection reason that refers to one of the defined:<br>BANNED_BY_SERVER<br>INTERRUPTED<br>LOGIN<br>LOGIN_FAILURE<br>LOGIN_SUCCESS<br>LOGIN_TIMEOUT<br>LOGOUT<br>REMOTE_LOGIN |
 
 ### SDK Events
 
@@ -1271,7 +1271,7 @@ Value return
 | `VOLUME_CHANGED`   | Indicates that video volume changed                                                                        | `Number (between 0.0f and 1.0f)`                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | `DURATION_CHANGED` | Indicates that the total duration of video changed                                                         | `Number (seconds)`                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | `RETRY_LOAD_VIDEO` | Event trigger when playback has an issue. SDK will internally try to playback video (retry for 30 seconds) | -                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| `ERROR`            | Indicates that an error occurred                                                                           | <p>Error object:<br><code>{ code: number, message: string, MEDIA_ERR_ABORTED: 1, MEDIA_ERR_NETWORK: 2, MEDIA_ERR_DECODE: 3, MEDIA_ERR_SRC_NOT_SUPPORTED: 4 }</code><br>_MEDIA_ERR_ABORTED: W3C error code for media error aborted.<br>_MEDIA_ERR_NETWORK: W3C error code for any network error.<br>_MEDIA_ERR_DECODE: W3C error code for any decoding error.<br>_MEDIA_ERR_SRC_NOT_SUPPORTED: W3C error code for any time that a source is not supported.</p> |
+| `ERROR`            | Indicates that an error occurred                                                                           | Error object:<br><code>{ code: number, message: string, MEDIA_ERR_ABORTED: 1, MEDIA_ERR_NETWORK: 2, MEDIA_ERR_DECODE: 3, MEDIA_ERR_SRC_NOT_SUPPORTED: 4 }</code><br>_MEDIA_ERR_ABORTED: W3C error code for media error aborted.<br>_MEDIA_ERR_NETWORK: W3C error code for any network error.<br>_MEDIA_ERR_DECODE: W3C error code for any decoding error.<br>_MEDIA_ERR_SRC_NOT_SUPPORTED: W3C error code for any time that a source is not supported. |
 | `ENDED`            | Indicates that the video playback ended                                                                    | -                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | `DESTROYED`        | Indicates that the video player destroyed                                                                  | -                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 
@@ -1290,11 +1290,11 @@ Value return
 
 | Error code             | Description                                                                                                                                                                |
 | ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `NO_MEDIAS`            | <p>Connect Camera and </p><p>microphone </p><p><strong>(for Live broadcast only)</strong></p>                                                                              |
-| `NO_CAMERA`            | <p>Connect Camera </p><p><strong>(for Live broadcast only)</strong></p>                                                                                                    |
-| `NO_MIC`               | <p>Connect microphone </p><p><strong>(for Live broadcast only)</strong></p>                                                                                                |
-| `PERMISSION_DENIED`    | <p>Permission denied </p><p><strong>(for Live broadcast only)</strong></p>                                                                                                 |
-| `NOT_SUPPORT_MEDIA`    | <p>Your browser does </p><p>not support <code>getUserMedia</code> </p><p>API which is used for </p><p>media playback </p><p><strong>(for Live broadcast only)</strong></p> |
+| `NO_MEDIAS`            | Connect Camera and microphone <strong>(for Live broadcast only)</strong>                                                                              |
+| `NO_CAMERA`            | Connect Camera <strong>(for Live broadcast only)</strong>                                                                                                    |
+| `NO_MIC`               | Connect microphone <strong>(for Live broadcast only)</strong>                                                                                                |
+| `PERMISSION_DENIED`    | Permission denied <strong>(for Live broadcast only)</strong>                                                                                                 |
+| `NOT_SUPPORT_MEDIA`    | Your browser does not support <code>getUserMedia</code> API which is used for media playback <strong>(for Live broadcast only)</strong> |
 | `RTM_NOT_FOUND`        | RTM server not found                                                                                                                                                       |
 | `RTM_CONFIG_INCORRECT` | RTM configs is incorrect                                                                                                                                                   |
 | `RTM_ERROR`            | RTM error                                                                                                                                                                  |
@@ -1303,22 +1303,22 @@ Value return
 
 | Error code | Description                                                                                                                                                                                                                      |
 | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `8`        | <p>The user has created </p><p>another chat room but </p><p>has not destroyed an </p><p>existed chat room</p>                                                                                                                    |
+| `8`        | The user has created another chat room but has not destroyed an existed chat room                                                                                                                    |
 | `4`        | The `licenseKey` is invalid                                                                                                                                                                                                      |
-| `9`        | <p>The <code>createChatRoom</code> </p><p>times out. The current </p><p>timeout is ten seconds. </p><p>You need to <code>createChatRoom</code> </p><p>again after timeout</p>                                                    |
-| `10`       | <p>The call frequency of the </p><p><code>createChatRoom</code> method </p><p>exceeds the limit of two </p><p>calls per second</p>                                                                                               |
-| `1`        | <p>Common <code>createChatRoom</code> </p><p>failure</p>                                                                                                                                                                         |
-| `16`       | <p>The user is joining or has</p><p> joined the channel</p>                                                                                                                                                                      |
-| `212`      | <p>The user has created </p><p>multiple channel instances </p><p>of the same channel name</p>                                                                                                                                    |
-| `15`       | <p>The number of the RTM </p><p>channels you are in </p><p>exceeds the limit of 20</p>                                                                                                                                           |
-| `11`       | <p>Common failure. The user </p><p>fails to join the channel</p>                                                                                                                                                                 |
-| `13`       | <p>The user fails to join the </p><p>channel because the </p><p>argument is invalid</p>                                                                                                                                          |
-| `18`       | <p>The frequency of joining </p><p>the same channel exceeds </p><p>two times every five seconds</p>                                                                                                                              |
-| `17`       | <p>The method call frequency </p><p>exceeds 50 calls every </p><p>three seconds</p>                                                                                                                                              |
-| `102`      | <p>The user does not call the <code>createChatRoom</code> method, </p><p>or the method call of </p><p><code>createChatRoom</code> does </p><p>not succeed before calling the <code>disconnectServerChat</code> </p><p>method</p> |
-| `14`       | <p>A timeout occurs when joining </p><p>the channel. The current </p><p>timeout is set as five seconds.</p>                                                                                                                      |
-| `31`       | <p>Common failure. The user</p><p>fails to leave the channel.</p>                                                                                                                                                                |
-| `33`       | <p>The user is not in the </p><p>channel.</p>                                                                                                                                                                                    |
+| `9`        | The <code>createChatRoom</code> times out. The current timeout is ten seconds. You need to <code>createChatRoom</code> again after timeout                                                    |
+| `10`       | The call frequency of the <code>createChatRoom</code> method exceeds the limit of two calls per second                                                                                               |
+| `1`        | Common <code>createChatRoom</code> failure                                                                                                                                                                         |
+| `16`       | The user is joining or has joined the channel                                                                                                                                                                      |
+| `212`      | The user has created multiple channel instances of the same channel name                                                                                                                                    |
+| `15`       | The number of the RTM channels you are in exceeds the limit of 20                                                                                                                                           |
+| `11`       | Common failure. The user fails to join the channel                                                                                                                                                                 |
+| `13`       | The user fails to join the channel because the argument is invalid                                                                                                                                          |
+| `18`       | The frequency of joining the same channel exceeds two times every five seconds                                                                                                                              |
+| `17`       | The method call frequency exceeds 50 calls every three seconds                                                                                                                                              |
+| `102`      | The user does not call the <code>createChatRoom</code> method, or the method call of <code>createChatRoom</code> does not succeed before calling the <code>disconnectServerChat</code> method |
+| `14`       | A timeout occurs when joining the channel. The current timeout is set as five seconds.                                                                                                                      |
+| `31`       | Common failure. The userfails to leave the channel.                                                                                                                                                                |
+| `33`       | The user is not in the channel.                                                                                                                                                                                    |
 
 ## Live Shopping
 

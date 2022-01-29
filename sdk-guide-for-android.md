@@ -853,7 +853,7 @@ class GetProductRequest {
 
 **Add new product (For Only Host / Seller)**
 
-```
+```kotlin
 fun addProduct(addProductRequest: AddProductRequest)
 /* 
 data class AddProductRequest(
@@ -871,7 +871,7 @@ Callback: BlsLiveShoppingCallback.onAddProductResult(..)
 
 **Edit product (For Only Host / Seller)**
 
-```
+```kotlin
 fun editProducteditProduct(editProductRequest: EditProductRequest)
 /* 
 data class EditProductRequest(
@@ -892,7 +892,7 @@ Callback: BlsLiveShoppingCallback.onUpdateProductResult with
 
 **Update product Order (For Only Host / Seller)**
 
-```
+```kotlin
 fun updateProductOrder(updateProductOrderRequest: UpdateProductOrderRequest)
 /* 
 data class UpdateProductOrderRequest(
@@ -908,7 +908,7 @@ Callback: BlsLiveShoppingCallback.onUpdateProductResult with
 
 **Delete (deactivate) product (For Only Host / Seller)**
 
-```
+```kotlin
 fun deleteProduct(deleteProductRequest: DeleteProductRequest)
 /* 
 data class DeleteProductRequest(
@@ -921,7 +921,7 @@ Callback: BlsLiveShoppingCallback.onDeleteProductResult(..)
 
 **Delete (deactivate) all products (For Only Host / Seller)**
 
-```
+```kotlin
 fun deleteAllProduct(deleteAllProductRequest: DeleteAllProductRequest)
 /* 
 class DeleteAllProductRequest()
@@ -935,7 +935,7 @@ Callback: BlsLiveShoppingCallback.onDeleteProductResult with
 
 Note : During live stream, we cannot edit promo code from Android SDK. It should be done using CMS
 
-```
+```kotlin
 fun editPromoCode(editPromoRequest: EditPromoCodeRequest)
 /* 
 data class EditPromoCodeRequest(
@@ -949,7 +949,7 @@ Callback: BlsLiveShoppingCallback.onUpdatePromoCodeResult
 
 Other callbacks:
 
-```
+```kotlin
 fun onLiveShoppingError(errorInfo: ErrorInfo)
 
 /* This callback is triggered when the promo code is updated 

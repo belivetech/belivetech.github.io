@@ -740,7 +740,7 @@ In case live stream is ended by host, viewer will receive following message type
 
 SDK supports utility methods for playback of recorded stream. `stream.status` for recorded streams will be 2 and `isRecorded` field will be true . Refer to below API
 
-```
+```swift
 /// Player
 self.viewerManager?.play() /// Play stream
 self.viewerManager?.pause() /// Pause stream
@@ -752,7 +752,7 @@ self.viewerManager?.seak(to: 10.0) { success in
 
 Delegate methods for player status&#x20;
 
-```
+```swift
 func blViewerManager(manager: BLViewerManager, 
                     player: BLPlayerKit, 
                     playerDidChangeDuration duration: TimeInterval) {
@@ -773,7 +773,7 @@ BeLive SDK supports picture-in-picture mode. Refer to our sample app.
 
 **Picture in Picture (PIP) In-App**
 
-```
+```swift
 /// Present a Viewer Controller for PIP mode
 BLPIP.shared.present(with: yourViewController)
 /// Show PIP
@@ -786,7 +786,7 @@ BLPIP.shared.dismiss(animation: true)
 
 **Picture in Picture (PIP) Out-of-App**
 
-```
+```swift
 /// This feature works only in iOS version 14.2 and above.
 
 /// Show PIP. Call this when app did enter background
@@ -804,7 +804,7 @@ SDK provides videoBitrate monitoring during stream. It determines the quality of
 
 **Statistic Message**
 
-```
+```swift
 /// Every 30s, the app will receive statistic 
 /// message with detail information as below, 
 /// Viewer can use these infomation to show on UI
@@ -895,7 +895,7 @@ func getProductsInPreLive() {
 
 Similarly other available APIs are listed below&#x20;
 
-```
+```swift
 /// Edit product
     /// - Parameters:
     ///   - id: Current product id.
