@@ -1,4 +1,6 @@
-### SDK Package
+---
+title: SDK Package
+---
 
 SDK Package contains following core components:
 

@@ -1,4 +1,6 @@
-## Streaming Configuration
+---
+title: Streaming Configuration
+---
 
 ### Stream ingest
 

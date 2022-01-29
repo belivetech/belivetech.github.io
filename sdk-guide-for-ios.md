@@ -1,4 +1,6 @@
-# SDK Guide for iOS
+---
+title: SDK Guide for iOS
+---
 
 The BeLive iOS SDK provides the interfaces required to broadcast and playback on iPhone devices along with interactive features.&#x20;
 

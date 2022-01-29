@@ -1,4 +1,6 @@
-### Platform Requirements
+---
+title: Platform Requirements
+---
 
 #### Native Platforms
 

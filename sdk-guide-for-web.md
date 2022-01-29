@@ -1,8 +1,10 @@
-# SDK Guide for Web
+---
+title: SDK Guide for Web
+redirect_from:
+  - /getting-started.html
+---
 
-{% hint style="info" %}
 **Good to know:** BeLive SDK for Web only supports video playback for live and recorded streams along with interactive elements.
-{% endhint %}
 
 ## Table of contents
 

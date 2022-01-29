@@ -1,4 +1,6 @@
-# Live Shopping Guide
+---
+title: Live Shopping Guide
+---
 
 Live shopping products can be configured in following two ways&#x20;
 

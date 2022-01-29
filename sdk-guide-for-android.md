@@ -1,4 +1,6 @@
-# SDK Guide For Android
+---
+title: SDK Guide for Android
+---
 
 The BeLive Android SDK provides the interfaces required to broadcast and playback on Android along with interactive features.&#x20;
 
