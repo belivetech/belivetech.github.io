@@ -22,28 +22,43 @@ Find below comprehensive guide for CMS.
 3. Click on the shopping cart button to add / edit / deactivate products.&#x20;
 4. Verify all the products, before the host can go live. All active products will be exported to live stream. For product images, we recommend size of `400x400 pixels`
 
-![Shopping cart button on right](<../.gitbook/assets/Screenshot 2022-01-25 at 8.04.22 PM.png>)
+Click Shopping cart button on right
 
-![Click on Add product to add new product or edit existing products ](<../.gitbook/assets/Screenshot 2022-01-25 at 8.14.13 PM (1).png>)
+![Shopping cart button on right](assets/images/live_shop1.png)
 
-![Fill in all the required information and click save. In case of no promotion price, just enter 0](<../.gitbook/assets/Screenshot 2022-01-25 at 8.13.00 PM (1).png>)
+Click on Add product to add new product or edit existing products 
+
+![Click on Add product to add new product or edit existing products](assets/images/live_shop2.png)
+
+Fill in all the required information and click save. In case of no promotion price, just enter 0
+
+![Fill in all the required information and click save. In case of no promotion price, just enter 0](assets/images/live_shop3.png)
+
+Verify activated products and Go Live!
 
 ![Verify activated products and Go Live!
-](<../.gitbook/assets/Screenshot 2022-01-25 at 8.15.11 PM.png>)
+](assets/images/live_shop4.png)
 
 ### Manage products during live broadcast
 
 Go to Live Broadcast section in left menu. Click on shopping cart next to live stream. You can edit product information during live stream. After editing product, click on save. You can also mark product to be out of stock during live. It will be reflected on both host / broadcaster and Viewer side using SDK API.&#x20;
 
-![Live Broadcast section](<../.gitbook/assets/Screenshot 2022-01-27 at 9.31.07 PM.png>)
+Live Broadcast section
 
-![Edit stream products during live stream and then press save](<../.gitbook/assets/Screenshot 2022-01-28 at 8.14.49 PM.png>)
+![Live Broadcast section](assets/images/live_shop5.png)
+
+Edit stream products during live stream and then press save
+
+![Edit stream products during live stream and then press save](assets/images/live_shop6.png)
 
 ### Manage products of archived stream
 
 Go to Archive section on left menu of CMS. Click on shopping cart next to archived stream. You can edit product information for archived streams
 
-![Archived streams
-](<../.gitbook/assets/Screenshot 2022-01-27 at 9.34.55 PM.png>)
+Archived streams
 
-![Edit stream products in archived streams and click save](<../.gitbook/assets/Screenshot 2022-01-28 at 8.14.49 PM.png>)
+![Archived streams](assets/images/live_shop7.png)
+
+[Edit stream products in archived streams and click save
+
+![Edit stream products in archived streams and click save](assets/images/live_shop8.png)
