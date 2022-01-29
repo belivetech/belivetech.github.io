@@ -2,9 +2,6 @@
 layout: article
 ---
 
-
-# BeLive Interactive Live Streaming SDK
-
 BeLive SDK is an end-to-end live streaming solution with customizable UI and content management system which can be integrated in your existing iOS, Android and Web apps with few lines of code. SDK provides fully functional live shopping capability.
 
 > Throughout this document we will refer to host / broadcaster as source of live stream while viewer or audience as consumer/watcher of live or recorded stream
