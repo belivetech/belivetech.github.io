@@ -47,4 +47,28 @@ header:
       fr-FR   : *FR
       fr-LU   : *FR
       # @end locale config
-    url: /about.html
+    url: /about.md
+
+en:
+  - title:
+    children:
+      - title:  Home
+        url:    index.html
+      - title:  SDK Package
+        url:    sdk-package.html
+      - title:  Platform Requirements
+        url:    platform-requirements.html
+      - title:  Streaming Configuration
+        url:    streaming-configuration.html
+  - title:      SDK Guides
+    children:
+      - title:  SDK Guide for Web
+        url:    sdk-guide-for-web.html
+      - title:  SDK Guide for Android
+        url:    sdk-guide-for-android.html
+      - title:  SDK Guide for iOS
+        url:    sdk-guide-for-ios.htnl
+      - title:  Live Shopping Guide
+        url:    live-shopping-guide.html
+      - title:  Media sources
+        url:    media-sources.html
