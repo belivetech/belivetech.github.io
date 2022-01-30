@@ -16,7 +16,7 @@ The following operations are supported:&#x20;
 
 • Manage Live Shopping
 
-_Latest version of iOS SDK: 1.0.0 (Release Notes)_
+Latest version of iOS SDK: 1.0.0 (Release Notes)
 
 ## Getting Started
 
@@ -93,7 +93,7 @@ First step is to **verify license key** and expiry time of SDK. Add following co
 func application(_ application: UIApplication, didFinishLaunchingWithOptions 
     launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Init BeLive SDK with License Key and Domain
-        BeLiveCore.shared.initWith(
+        BeLiveSDK.shared.initWith(
             licenseKey: "license_key",
             environment: .demo,
             delegate: self
@@ -105,7 +105,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions
         return true
     }
     
-extension AppDelegate: BeLiveCoreDelegate {
+extension AppDelegate: BeLiveSDKDelegate {
     func sdkExpired() {
         // This callback will be called only if Demo SDK is expired.
     }
@@ -117,23 +117,23 @@ For SDK testing, use demo environment. For production environment, `apiDomain` w
 Nest step is to login which essentially is creating a session with Belive backend. There is slight difference between Host login and Viewer Login. Note that host login accounts are pre-generated while viewer accounts can be created using SDK API.\
 
 
-**Access BeLive API Services from BeLiveCore singleton functions**
+**Access BeLive API Services from BeLiveSDK singleton functions**
 
 **User Services**
 
 ```swift
-BeLiveCore.shared.userService()
+BeLiveSDK.shared.userService()
 
 /// Access to current user after logging in.
-BeLiveCore.shared.userService().currentUser()
+BeLiveSDK.shared.userService().currentUser()
 /// Whenver you call login API, current user will be saved.
 /// Whenver you call logout API, current user will be logged out.
 
 /// Check login status
-BeLiveCore.shared.userService().isLogin()
+BeLiveSDK.shared.userService().isLogin()
 
 /// Check is guest user
-BeLiveCore.shared.userService().isGuest()
+BeLiveSDK.shared.userService().isGuest()
 
 /// Log-in as HOST/Broadcaster
 /// - Parameters:
@@ -186,7 +186,7 @@ func logoutBeLive(completion: @escaping (BLAPIResult<Bool>) -> Void)
 **Host / Broadcaster Login**
 
 ```kotlin
-BeLiveCore.shared.userService().login(
+BeLiveSDK.shared.userService().login(
             beliveId: "beliveId",
             password: "password",
             deviceUdid: "deviceUdid",
@@ -210,7 +210,7 @@ BeLiveCore.shared.userService().login(
 **Viewer Login (SSO Login with unique userId and displayName)**
 
 ```kotlin
-BeLiveCore.shared.userService().loginBeLive(
+BeLiveSDK.shared.userService().loginBeLive(
             beliveId: "beliveId",
             displayName: "displayName",
             deviceUdid: "deviceUdid",
@@ -235,7 +235,7 @@ BeLiveCore.shared.userService().loginBeLive(
 **Guest Login**
 
 ```kotlin
-BeLiveCore.shared.userService().loginGuest(deviceUdid: "deviceUdid")
+BeLiveSDK.shared.userService().loginGuest(deviceUdid: "deviceUdid")
         {[weak self ] result in
             guard let self = self else { return }
             
@@ -254,7 +254,7 @@ BeLiveCore.shared.userService().loginGuest(deviceUdid: "deviceUdid")
 **Logout**&#x20;
 
 ```kotlin
- BeLiveCore.shared.userService().logoutBeLive() {
+ BeLiveSDK.shared.userService().logoutBeLive() {
             [weak self ] result in
                 guard let self = self else { return }
         }
@@ -285,25 +285,19 @@ broadcasterManager?.startPreview()
 | setStreamQuality  | Two available options for Stream Quality are BLStreamQuality.sd and BLStreamQuality.hd |
 | setMaxKeyInterval | For lower end-to-end latency, set maxKeyInterval to 1F.                                |
 
-**Summary**&#x20;
+**Summary**;
 
 BroadcastView controller should implement below delegates to receive state updates about chat and broadcast session
 
 ```swift
 /// BeLive Broadcaster Manager Message Delegate
 public protocol BeLiveBroadcasterManagerMessageDelegate: AnyObject {
-  func beLiveBroadcasterManagerDidJoinStreamChannel(
-                    manager: BeLiveBroadcasterManager)
-  func beLiveBroadcasterManager(manager: BeLiveBroadcasterManager, 
-                    didFailedToJoinStreamChannel error: String)
-  func beLiveBroadcasterManager(manager: BeLiveBroadcasterManager,
-                    didReceivePeerMessage message: BLStreamMessage)
-    func beLiveBroadcasterManager(manager: BeLiveBroadcasterManager, 
-                    didReceiveStreamMessage message: BLStreamMessage)
-    func beLiveBroadcasterManager(manager: BeLiveBroadcasterManager, 
-                    userJoined userId: String)
-    func beLiveBroadcasterManager(manager: BeLiveBroadcasterManager, 
-                    userLeft userId: String)
+    func beLiveBroadcasterManagerDidJoinStreamChannel(manager: BeLiveBroadcasterManager)
+    func beLiveBroadcasterManager(manager: BeLiveBroadcasterManager, didFailedToJoinStreamChannel error: String)
+    func beLiveBroadcasterManager(manager: BeLiveBroadcasterManager,didReceivePeerMessage message: BLStreamMessage)
+    func beLiveBroadcasterManager(manager: BeLiveBroadcasterManager, didReceiveStreamMessage message: BLStreamMessage)
+    func beLiveBroadcasterManager(manager: BeLiveBroadcasterManager, userJoined userId: String)
+    func beLiveBroadcasterManager(manager: BeLiveBroadcasterManager, userLeft userId: String)
 }
 
 ```
@@ -311,28 +305,31 @@ public protocol BeLiveBroadcasterManagerMessageDelegate: AnyObject {
 ```swift
 /// BeLive Broadcaster Manager Stream Kit Delegate
 public protocol BeLiveBroadcasterStreamKitDelegate: AnyObject {
-  func beLiveBroadcasterManager(kit: BeLiveBroadcasterManager, 
-                                    stateDidChange state: BLStreamState)
-  func beLiveBroadcasterManager(kit: BeLiveBroadcasterManager, 
-                                    netStateCodeDidChange state: BLNetStateCode)
-  /// In the Trial SDK. swThe host can only stream within 15 minutes.
-  func beLiveBroadcasterManagerLimitation(manager: BeLiveBroadcasterManager)
+    func beLiveBroadcasterManager(kit: BeLiveBroadcasterManager, streamDidCreate stream: BLStream)
+    func beLiveBroadcasterManager(kit: BeLiveBroadcasterManager, streamDidBegin stream: BLStream)
+    func beLiveBroadcasterManager(kit: BeLiveBroadcasterManager, streamDidEnd endStream: BLEndStream, withReason reason: String?)
+    func beLiveBroadcasterManager(kit: BeLiveBroadcasterManager, streamError error: Error)
+    func beLiveBroadcasterManager(kit: BeLiveBroadcasterManager, streamStatisticDidUpdate statistic: BLStreamStatistic)
+    func beLiveBroadcasterManager(kit: BeLiveBroadcasterManager, stateDidChange state: BLStreamState)
+    func beLiveBroadcasterManager(kit: BeLiveBroadcasterManager, netStateCodeDidChange state: BLNetStateCode)
+    /// In the Trial SDK. The host can only stream for 15 minutes.
+    func beLiveBroadcasterManagerLimitation(manager: BeLiveBroadcasterManager)
 }
 ```
 
-### Step 3 : Request Permissions&#x20;
+### Step 3 : Request Permissions;
 
 Before start live stream, camera and microphone permissions are required. Your app must request permission to access the user’s camera and mic. (This is not specific to BeLive SDK; it is required for any application that needs access to cameras and microphones.)
 
 ```swift
 switch AVCaptureDevice.authorizationStatus(for: .video) {
-case .authorized: // permission already granted.
-case .notDetermined:
- AVCaptureDevice.requestAccess(for: .video) { granted in
- // permission granted based on granted bool.
- }
-case .denied, .restricted: // permission denied.
-@unknown default: // permissions unknown.
+    case .authorized: // permission already granted.
+    case .notDetermined:
+    AVCaptureDevice.requestAccess(for: .video) { granted in
+    // permission granted based on granted bool.
+    }
+    case .denied, .restricted: // permission denied.
+    @unknown default: // permissions unknown.
 }
 
 ```
@@ -354,38 +351,67 @@ override func viewDidDisappear(_ animated: Bool) {
 
 ### Step 4 : Start Live Broadcast Session
 
-SDK requires stream title as mandatory field to start stream.&#x20;
+SDK requires stream title as mandatory field to start stream.
+
+API 
+
+```swift
+public func createStream(title: String, coverImage: UIImage?, completion: @escaping ((BLStream?, Error?) -> Void))
+public func beginStream() 
+public func beginObsStream()
+
+```
 
 ```swift
 fun startLiveBroadcast() {
         let obs = false
-        BeLiveCore.shared.streamService().createStream(title: "stream_title") { 
-        [weak self] result in
+        self.broadcasterManager?.createStream(title: title, coverImage: self.viewModel.input?.coverImage.value, completion: 
+        { [weak self] stream, error in
             guard let self = self else { return }
-            switch result {
-                case .ok (data: let stream):
-                // update stream to manager.
-                    self.broadcasterManager?.stream = stream
-                    if (obs) {
-                        // Use stream slug to start stream with 
-                        // OBS then proceed to next step
-                        print(stream.slug)
-                    } else {
-                        // Publish stream using phone camera
-                        self.broadcasterManager?.startStream(
-                                    withUrl: stream.rtmpUrl ?? "")
-                    }
-                case .error(error: let error):
-                    print(error)
-                @unknown default:
-                    fatalError()
-
+            if let error = error {
+               // Error occured while creating stream.
+                return
             }
-        }
+
+            // Create stream success
+            if isOBS {
+
+                // copy stream slug (which is stream key for Broadcasting software)
+                 print("\(stream.slug)")
+                // After starting stream with OBS, call the below method to begin obs stream 
+                self.broadcasterManager?.beginObsStream()
+            } else {
+                // Begin normal stream 
+                self.broadcasterManager?.beginStream()
+            }
+        })
     }
 ```
 
-At this moment, SDK supports only `portrait` stream. Follow delegate method will be called for stream status.
+
+At this moment, SDK supports only `portrait` stream. Following delegate method will be called for stream status.
+
+**Stream created succesfully** 
+
+```swift 
+func beLiveBroadcasterManager(kit: BeLiveBroadcasterManager, streamDidCreate stream: BLStream) {
+       // stream created successfully
+}
+
+```
+
+**Stream began succesfully** 
+```swift 
+func beLiveBroadcasterManager(kit: BeLiveBroadcasterManager, streamDidBegin stream: BLStream) {
+        // Stream began successfully - Update UI 
+}
+```
+
+**Streaming server connection status** 
+
+`Connected` state indicates that streaming server is getting stream data from mobile client
+
+> Note : Below delegate will not be called in case of OBS streaming
 
 ```swift
 func beLiveBroadcasterManager(kit: BeLiveBroadcasterManager, 
@@ -404,6 +430,15 @@ func beLiveBroadcasterManager(kit: BeLiveBroadcasterManager,
             BLLog.e("BLStream Kit Error Code: \(code)")
         }
     }
+```
+
+**Stream error** 
+
+```swift
+func beLiveBroadcasterManager(kit: BeLiveBroadcasterManager, streamError error: Error) {
+        // Error while starting stream
+    }
+
 ```
 
 At the same time, host is connected to live chat channel. Refer to below delegate methods for success and failure case&#x20;
@@ -425,66 +460,54 @@ func beLiveBroadcasterManager(
 
 ### Step 5 : Stop Live Broadcast Session
 
-API in BLStreamService&#x20;
+API
 
 ```swift
 public func endStream(slug: String, 
     completion: @escaping (BLAPIResult<BLEndStream>) -> Void)
 ```
 
-Usage&#x20;
+Usage
 
 ```swift
-func stopLiveBroadcast() {
-    BeLiveCore.shared.streamService().endStream(
-                slug: self.broadcasterManager?.stream.slug ?? "") {
-        [weak self] result in
-            guard let self = self else { return }
-            switch result {
-                case .ok (data: let stream):
-                    print(stream.viewCount)
-                case .error(error: let error):
-                    print(error)
-                @unknown default:
-                    fatalError()
-            }
-            
-        }
+func endStream() {
+        self.broadcasterManager?.endStream()
     }
+```
+
+Callback
+
+Follow delegate method will be called for end stream status
+
+```swift
+func beLiveBroadcasterManager(kit: BeLiveBroadcasterManager, streamDidEnd endStream: BLEndStream, withReason reason: String?) {
+    print("streamDidEnd")
+
+}
 ```
 
 ### Step 6 : Save Stream
 
-API&#x20;
+API
 
 ```swift
-public func recordStream(slug: String, 
-    completion: @escaping (BLAPIResult<Bool>) -> Void)
+public func recordStream(completion: @escaping (Error?) -> Void)
 ```
 
-Usage&#x20;
+Usage
 
 ```swift
-func saveBroadcast() {
-        BeLiveCore.shared.streamService().recordStream(
-                    slug: self.broadcasterManager?.stream.slug ?? "") {
-            [weak self] result in
+self.broadcasterManager?.recordStream(completion: { [weak self] error in
             guard let self = self else { return }
-            switch result {
-                case .ok (data: let status):
-                print(status)
-                case .error(error: let error):
-                    print(error)
-                @unknown default:
-                    fatalError()
+            if let error = error {
+                // error while recording stream
             }
-        }   
-    }
+})
 ```
 
 You can release broadcast session by calling following method&#x20;
 
-```
+```swift
  self.broadcasterManager?.releaseKit()
 ```
 
@@ -494,8 +517,7 @@ BeLive SDK provides ability to live chat. Refer to following API for sending liv
 
 ```swift
 func sendChatMessage() {
-    self.broadcasterManager?.sendChatMessage(content: "string".censored(), 
-        recordedTime: 123, 
+    self.broadcasterManager?.sendChatMessage(content: "string".censored(),
             completion: { 
                 [weak self] message in
                 guard let self = self else { return }
@@ -506,23 +528,20 @@ func sendChatMessage() {
                 }
                 // update UI
             }
-        })
-        
+        })   
 }
 ```
 
 Following delegate methods are called when host receives new chat message from other viewers or admin.
 
 ```swift
-func beLiveBroadcasterManager(manager: BeLiveBroadcasterManager, 
-    didReceivePeerMessage message: BLStreamMessage) {
+func beLiveBroadcasterManager(manager: BeLiveBroadcasterManager, didReceivePeerMessage message: BLStreamMessage) {
         self.receiveNewMessage(message: message)
     }
 
-func beLiveBroadcasterManager(manager: BeLiveBroadcasterManager, 
-        didReceiveStreamMessage message: BLStreamMessage) {
+func beLiveBroadcasterManager(manager: BeLiveBroadcasterManager, didReceiveStreamMessage message: BLStreamMessage) {
         self.receiveNewMessage(message: message)
-    }
+}
 func receiveNewMessage(message: BLStreamMessage)  {
     switch message.messageType {
         case BLMessageType.message.rawValue, BLMessageType.share.rawValue:
@@ -539,11 +558,59 @@ func receiveNewMessage(message: BLStreamMessage)  {
 }
 ```
 
-### Step 8 : **Receive statistics update**
+### Step 8 : Receive statistics updates
+
+BeLive SDK updates view counts and like counts every `30` seconds.
+
+Refer to following `BeLiveBroadcasterStreamKitDelegate` callback for receiving updates.
+
+```kotlin
+func beLiveBroadcasterManager(kit: BeLiveBroadcasterManager, streamStatisticDidUpdate statistic: BLStreamStatistic) {
+        // Promo code
+        print(statistic.promoCode)
+        // Promo code description
+        print(statistic.promoCodeDescription)
+}
+
+```
+
 
 ### Step 9 : Start OBS Stream (Optional)
 
-## Watch your first live stream&#x20;
+Refer to step 4 (Start Live Broadcast Session) for more details.
+
+### Utility Methods 
+
+#### Switch Camera 
+
+Use following method to switch between front and back camera.
+
+```swift
+self.broadcasterManager?.switchCamera()
+```
+You can check which camera is active by using below boolean 
+
+```swift
+let isFrontCamera = self.broadcasterManager?.isFrontCamera
+
+```
+
+### Enable beautyfilter 
+
+Enable or disable beauty filter using following methods
+
+```swift
+self.broadcasterManager?.enableBeautyFilter()
+self.broadcasterManager?.disableBeautyfilter()
+```
+
+You can check whether beauty filter is enabled by using below boolean 
+
+```swift
+let isBeautyEnable =  self.broadcasterManager?.isBeautyEnable 
+```
+
+## Watch your first live stream;
 
 Summary of the classes for Viewer:
 
@@ -574,7 +641,7 @@ To join stream, you need unique stream slug which is generated for each stream. 
 ```swift
 func joinWithSlug(slug: String) {
 
-        let streamService = BeLiveCore.shared.streamService()
+        let streamService = BeLiveSDK.shared.streamService()
         streamService.getStreamDetail(slug: slug) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -634,7 +701,7 @@ func beLiveAudienceManager(manager: BeLiveAudienceManager,
 ```swift
 func leaveStream() {
 
-        let streamService = BeLiveCore.shared.streamService()
+        let streamService = BeLiveSDK.shared.streamService()
         let streamUserId = stream.userId
         let slug = stream.slug
         streamService.leaveStream(streamUserId: streamUserId, slug: slug) { 
@@ -711,17 +778,14 @@ In didReceiveStreamMessage, filter out message type `statistics` to get stream s
 ```swift
 case BLMessageType.statistic.rawValue:
     guard let statisticMessage = message as? BLStatisticMessage else { return }
-    self.lastStatisticMessage = statisticMessage
     DispatchQueue.main.async { [weak self] in
         guard let self = self else { return }
-        self.viewCountLabel.text = String(statisticMessage.totalViewers ?? 0)
-        self.likeCountLabel.text = String(statisticMessage.totalLikes ?? 0)
+        let viewCount = String(statisticMessage.totalViewers ?? 0)
+        let likeCount = String(statisticMessage.totalLikes ?? 0)
         
         // Promo code update (related to live shopping)
-        self.shoppingPanelVC?.promotionCodeLabel.text = 
-                        self.lastStatisticMessage?.promoCode
-        self.shoppingPanelVC?.promotionCodeDescriptionLabel.text = 
-                        self.lastStatisticMessage?.promoCodeDescription
+        print(statisticMessage?.promoCode)
+        print(statisticMessage?.promoCodeDescription)
 }
 ```
 
@@ -738,7 +802,8 @@ In case live stream is ended by host, viewer will receive following message type
 
 ### Step **7 :  Recorded video playback**
 
-SDK supports utility methods for playback of recorded stream. `stream.status` for recorded streams will be 2 and `isRecorded` field will be true . Refer to below API
+SDK supports utility methods for playback of recorded stream. `stream.status` for recorded streams will be 2 and `isRecorded` field will be true . 
+Refer to below API
 
 ```swift
 /// Player
@@ -839,7 +904,7 @@ Live Shopping module of BeLive SDK provides following classes and methods and ca
 ```swift
 func getProductsInPreLive() {
         
-        let productService = BeLiveCore.shared.productService()
+        let productService = BeLiveSDK.shared.productService()
         productService.getProducts(nextId: 0, completion: {
             [weak self] result in
             guard let self = self else { return }
@@ -868,7 +933,7 @@ func getProductsInPreLive() {
 ```swift
 func getProductsInPreLive() {
         
-        let productService = BeLiveCore.shared.productService()
+        let productService = BeLiveSDK.shared.productService()
         productService.addProduct(name: "name", 
                             price: 100, 
                             promotionPrice: 90, 
@@ -950,7 +1015,7 @@ BLStreamService.getStreamProductList : This method is used by both host/broadcas
 ```swift
 func getProductsInStream() {
         
-        let streamService = BeLiveCore.shared.streamService()
+        let streamService = BeLiveSDK.shared.streamService()
         
         streamService.getStreamProductList(slug: "stream.slug",
                                            nextId: 20, completion: {

@@ -8,32 +8,32 @@ redirect_from:
 
 ## Table of contents
 
-* Getting started
-* Step-by-step guide for viewer to watch stream
-  * Step 1: Set up SDK
-  * Step 2: Insert video tag in your html
-  * Step 3: Create a viewer instance
-  * Step 4: Add SDK event listeners
-  * Step 5: Login to identify a user
-  * Step 6: Watch a livestream video or a recorded video
-  * Step 7: Real-time messaging
-  * Step 8: Destroy live video and chat room
-* Advanced guide
-  * Anti-spamming messages
-  * Read history chat from a recorded stream
-* API
-  * General methods
-  * RTM Threshold Methods
-  * Video Player Methods
-  * Models
-    * RtmError
-  * SDK events
-    * General events emitted during sdk usage
-    * Video Events
-  * Error codes
-    * Status response
-    * General error codes
-    * RTM error codes
+* [Getting started](#getting-started)
+- [Step-by-step guide for viewer to watch stream](#step-by-step-guide-for-viewer-to-watch-stream)
+  - [Step 1: Set up SDK](#step-1-set-up-sdk)
+  - [Step 2: Insert video tag in your html](#step-2-insert-video-tag-in-your-html)
+  - [Step 3: Create a viewer instance](#step-3-create-a-viewer-instance)
+  - [Step 4: Add SDK event listeners](#step-4-add-sdk-event-listeners)
+  - [Step 5: Login to identify a user](#step-5-login-to-identify-a-user)
+  - [Step 6: Watch a livestream video or a recorded video](#step-6-watch-a-livestream-video-or-a-recorded-video)
+  - [Step 7: Real-time messaging](#step-7-real-time-messaging)
+  - [Step 8: Destroy live video and chat room](#step-8-destroy-live-video-and-chat-room)
+- [Advanced guide](#advanced-guide)
+  - [Anti-spamming messages](#anti-spamming-messages)
+  - [Read history chat from a recorded stream](#read-history-chat-from-a-recorded-stream)
+- [API](#api)
+  - [General methods](#general-methods)
+  -  [RTM Threshold Methods](#rtm-threshold-methods)
+  - [Video Player Methods](#video-player-methods)
+  - [Models](#models)
+    - [RtmError](#rtmerror)
+  - [SDK events](#sdk-events)
+    - [General events emitted during sdk usage](#general-events-emitted-during-sdk-usage)
+    - [Video Events](#video-events)
+  - [Error codes](#error-codes)
+    - [Status response](#status-response)
+    - [General error codes](#general-error-codes)
+    - [RTM error codes](#rtm-error-codes)
 
 ## Getting started
 
@@ -346,7 +346,7 @@ videoInstance.on("TIME_UPDATE", (currentTime) => {
 
 ## API
 
-### General
+### General methods
 
 | Method                     | Description                                                                   |
 | -------------------------- | ----------------------------------------------------------------------------- |
@@ -1177,7 +1177,7 @@ Example
 
 ### Models
 
-**RtmError**
+### RtmError
 
 | Property  | Data type | Description                                                                                                                                                                              |
 | --------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -1188,7 +1188,7 @@ Example
 
 ### SDK Events
 
-**General events emitted during sdk usage.**
+### General events emitted during sdk usage.
 
 | Method                | Description                                  | Value Return                                                                 |
 | --------------------- | -------------------------------------------- | ---------------------------------------------------------------------------- |
@@ -1255,7 +1255,7 @@ Value return
 }
 ```
 
-**Video Events**
+#### Video Events 
 
 | Method             | Description                                                                                                | Value Return                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | ------------------ | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -1277,14 +1277,14 @@ Value return
 
 ### Error codes
 
-**Status response**
+### Status response
 
 | Status code | Description |
 | ----------- | ----------- |
 | `ERROR`     | Error       |
 | `SUCCESS`   | Success     |
 
-**General error codes**
+#### General error codes
 
 ****
 
@@ -1299,7 +1299,7 @@ Value return
 | `RTM_CONFIG_INCORRECT` | RTM configs is incorrect                                                                                                                                                   |
 | `RTM_ERROR`            | RTM error                                                                                                                                                                  |
 
-**RTM error codes**
+#### RTM error codes
 
 | Error code | Description                                                                                                                                                                                                                      |
 | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

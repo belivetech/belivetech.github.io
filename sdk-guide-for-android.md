@@ -492,11 +492,11 @@ fun onSendMessageResult(chatMessage: ChatMessage, errorCode: Int)
 
 ### Step 8 : **Receive statistics update**
 
-BeLive SDK updates view counts and like counts every `20~30` seconds.
+BeLive SDK updates view counts and like counts every `30` seconds.
 
 Refer to following `BlsLiveStreamCallback` callbacks for receiving updates.
 
-```
+```kotlin
 override fun onStatistics(statistics: BlsLiveStreamStatistics) {
        // update view count
        // update like count
@@ -510,13 +510,13 @@ override fun onDuration(duration: Long)  {
 
 BeLive SDK provides an option to start stream using professional broadcasting softwares such as OBS, Wirecast, Vmix etc.
 
-```
+```kotlin
 fun startObs()
 ```
 
 You can set `isOBS = true` in `startStream()` method. A unique slug key will be generated and propagated back to SDK in following `BlsLiveStreamCallback` callback method.
 
-```
+```kotlin
 fun onObsCreated(slug: String) {
      // Get slug here.
      // After starting stream using OBS, make sure that you call following API
