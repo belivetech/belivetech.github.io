@@ -2,15 +2,15 @@
 title: SDK Guide for iOS
 ---
 
-The BeLive iOS SDK provides the interfaces required to broadcast and playback on iPhone devices along with interactive features.&#x20;
+The BeLive iOS SDK provides the interfaces required to broadcast and playback on iPhone devices along with interactive features.
 
-The following operations are supported:&#x20;
+The following operations are supported
 
-• Set up (initialize) SDK&#x20;
+• Set up (initialize) SDK
 
-• Manage live broadcasting.&#x20;
+• Manage live broadcasting
 
-• Watch live stream&#x20;
+• Watch live stream
 
 • Watch Recorded stream
 
@@ -36,10 +36,14 @@ You can use [CocoaPods](http://cocoapods.org) to install BeLive SDK by adding fo
 
 ```ruby
 platform :ios, '11.0'
-use_frameworks!
-pod 'BeLiveCore', :path => '../framework/BeLiveCore'
-pod 'BeLiveAudience', :path => '../framework/BeLiveAudience'
-pod 'BeLiveBroadcaster', :path => '../framework/BeLiveBroadcaster'
+    target 'BeliveSample' do
+    use_frameworks!
+    pod 'BeLiveCore', :path => '../framework/BeLiveCore'
+    pod 'BeLiveAudience', :path => '../framework/BeLiveAudience'
+    pod 'BeLiveBroadcaster', :path => '../framework/BeLiveBroadcaster'
+    # we have to specify correct ksy version because we can't set this in podspec
+    pod 'libksygpulive', :git => 'https://github.com/ksvc/KSYLive_iOS.git', :tag => 'v3.0.5'
+end
 ```
 
 > Take note about framework folder which contains `podspec` files and `xcframework`
@@ -51,19 +55,17 @@ Each of the `podspec` file have their dependencies added in respective files.
 1. Extract the contents of the framework. There will be three `xcframeworks` : `BeLiveCore.xcframework` , BeLiveAudience.`xcframework` and `BeLiveBroadcaster.xcframwork`
 2. Embed  all three xcframework by dragging it into the Frameworks, Libraries, and Embedded Content section of the General tab for your application target.
 
-![](<../.gitbook/assets/Screenshot 2022-01-23 at 11.22.06 PM.png>)
-
 Belive iOS SDK uses following open source libraries which must be added in Podfile with specific versions
 
 ```
 # BeLiveCore
-'Alamofire', '5.5.0'
+'Alamofire', '4.9.1'
 'AgoraRtm_iOS', '1.4.8'
 # BeLiveAudience 
 'AmazonIVSPlayer', '1.5.0'
 # BeLiveBroadcaster 
 'GPUImage', '0.1.7'
-'libksygpulive',:git => 'https://github.com/ksvc/KSYLive_iOS.git', :tag => 'v3.0.5'
+'libksygpulive'
 
 ```
 
@@ -77,11 +79,7 @@ import BeLiveAudience
 import BeLiveBroadcaster
 ```
 
-### Carthage
-
-_in progress_
-
-## **Start your first live stream**
+## Start your first live stream
 
 Before starting or playing back live stream, SDK must be initialized with `license key.`Obtain license key from business team by providing your app's bundle Id.
 
