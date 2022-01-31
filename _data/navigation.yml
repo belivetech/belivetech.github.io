@@ -2,7 +2,7 @@ header:
   - title:      Contact us
     url:        https://tech.belive.sg/contact-us/
   - title:      About
-    url:        about.md
+    url:        /about.html
 
 en:
   - title:
