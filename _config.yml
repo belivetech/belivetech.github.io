@@ -150,7 +150,7 @@ analytics:
 
   ## Google Analytics
   google:
-    tracking_id : UA-30226156-2
+    tracking_id : 302261562 # G-QC9KTK3MTS # UA-302261562
     anonymize_ip: true # Anonymize IP tracking for Analytics
 
 
