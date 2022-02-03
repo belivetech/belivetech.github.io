@@ -150,8 +150,8 @@ analytics:
 
   ## Google Analytics
   google:
-    tracking_id : UA-302261562
-    anonymize_ip: false # Anonymize IP tracking for Analytics
+    tracking_id : UA-30226156-2
+    anonymize_ip: true # Anonymize IP tracking for Analytics
 
 
 ## => Build
