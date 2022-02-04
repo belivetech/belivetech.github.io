@@ -25,3 +25,8 @@ en:
         url:    sdk-guide-for-ios.html
       - title:  Live Shopping Guide
         url:    live-shopping-guide.html
+
+  - title:      API References
+    children:
+      - title:  List Streams
+        url:    api-list-streams.html
