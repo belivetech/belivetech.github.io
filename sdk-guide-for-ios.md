@@ -613,24 +613,26 @@ let isBeautyEnable =  self.broadcasterManager?.isBeautyEnable
 Summary of the classes for Viewer:
 
 * View/Watch Stream Manager class : `BeLiveAudienceManager`
+* Audience Manager callbacks : `BeLiveAudienceManagerDelegate`
 * Player Callbacks : `BeLiveAudienceManagerPlayerDelegate`
 * Live Chat callbacks : `BeLiveAudienceManagerMessageDelegate`
 
-Refer to Initialize SDK (Viewer) section for initializing and create a session with BeLive API before proceeding to next step&#x20;
+Refer to Initialize SDK (Viewer) section for initializing and create a session with BeLive API before proceeding to next step
 
 ### Step 1 : Register Stream playback delegates
 
 ```swift
- var viewerManager: BeLiveAudienceManager?
+var viewerManager: BeLiveAudienceManager?
 func setupView() {
     // Init BeLive Audience Viewer Manager
     self.viewerManager = BeLiveAudienceManager(renderView: self.playerView, stream: stream)
-    self.viewerManager?.playerDelegate = self
-    self.viewerManager?.messageDelegate = self
+    self.viewerManager?.delegate = self // BeLiveAudienceManager delegate
+    self.viewerManager?.playerDelegate = self // BeLiveAudienceManagerPlayerDelegate
+    self.viewerManager?.messageDelegate = self // BeLiveAudienceManagerMessageDelegate
 }
 ```
 
-Note that `playerView` is the UIView where you want to show video.&#x20;
+Note that `playerView` is the UIView where you want to show video. Make sure that your View Controller has implemented above mentioned delegates.
 
 ### Step 2 : Join Stream with slug
 
@@ -678,16 +680,15 @@ func beLiveAudienceManager(manager: BeLiveAudienceManager,
 }
 ```
 
-At the same time, viewer is connected to live chat channel. Refer to below `BeLiveAudienceManagerMessageDelegate` callback.
+At the same time, viewer is connected to live chat channel. Refer to below `BeLiveAudienceManagerMessageDelegate` callbacks.
 
 ```swift
-func beLiveAudienceManagerDidJoinStreamChannel(manager: BeLiveAudienceManager) {
-    manager.sendJoinMessage(completion: { [weak self] message in
-        guard let self = self, let message = message else { return }
-            self.receiveNewMessage(message: message)
-    })
+/// Successfully joined chat channel
+func beLiveAudienceManager(manager: BeLiveAudienceManager, didJoinStreamChannel joinedMessage: BLStreamMessage) {
+    self.receiveNewMessage(message: joinedMessage)  // Refer to step 4 for example of receiveNewMessage function
 }
 
+/// Failed to join chat channel 
 func beLiveAudienceManager(manager: BeLiveAudienceManager, 
                     didFailedToJoinStreamChannel error: String) {
     print("\(error)")
@@ -696,30 +697,17 @@ func beLiveAudienceManager(manager: BeLiveAudienceManager,
 
 ### Step 3 : **Leave Stream**
 
+Refer to below method for leaving stream. 
+
 ```swift
 func leaveStream() {
 
-        let streamService = BeLiveSDK.shared.streamService()
-        let streamUserId = stream.userId
-        let slug = stream.slug
-        streamService.leaveStream(streamUserId: streamUserId, slug: slug) { 
-        [weak self] result in
-            guard let self = self else { return }
-            switch result {
-                case .ok(data: let status):
-                    print(status)
-                case .error(error: let error):
-                    print(error)
-            }
-        }
+        self.viewerManager?.leaveStream()
+        // BLPIP.shared.dismiss(animation: true) // Dismiss picture-in-picture view.
 }
 ```
 
-You can release resources by using below code:
-
-```swift
-self.viewerManager?.release()
-```
+BeLive SDK will internally release resources when you call `leaveStream` method
 
 ### Step 4 : Send and Receive Chat message
 
@@ -740,15 +728,15 @@ func sendChatMessage() {
 Following delegate methods are called when host receives new chat message from other viewers or admin.
 
 ```swift
-func beLiveAudienceManager(manager: BeLiveAudienceManager, 
-    didReceivePeerMessage message: BLStreamMessage) {
+func beLiveAudienceManager(manager: BeLiveAudienceManager, didReceivePeerMessage message: BLStreamMessage) {
         self.receiveNewMessage(message: message)
     }
 
-func beLiveAudienceManager(manager: BeLiveAudienceManager, 
-        didReceiveStreamMessage message: BLStreamMessage) {
+func beLiveAudienceManager(manager: BeLiveAudienceManager, didReceiveStreamMessage message: BLStreamMessage) {
         self.receiveNewMessage(message: message)
     }
+
+// Parse messages based on their message types 
 func receiveNewMessage(message: BLStreamMessage)  {
     switch message.messageType {
         case BLMessageType.message.rawValue, BLMessageType.share.rawValue:
@@ -756,13 +744,6 @@ func receiveNewMessage(message: BLStreamMessage)  {
         case BLMessageType.viewerJoined.rawValue:
         case BLMessageType.like.rawValue:
             // like message type
-        case BLMessageType.adminStop.rawValue:
-            print("Live has been removed due to poor content")
-            // leave live stream
-        case BLMessageType.hostStreamEnd.rawValue:
-            print("Host ended this stream!!!")
-            // Update UI
-            self.viewerManager?.release()
         default:
             break
         }
@@ -771,36 +752,43 @@ func receiveNewMessage(message: BLStreamMessage)  {
 
 ### Step 5 : **Receive statistics update**
 
-In didReceiveStreamMessage, filter out message type `statistics` to get stream statistics update&#x20;
+Refer to `statisticDidUpdate` callback of `BeLiveAudienceManagerDelegate`.
 
 ```swift
-case BLMessageType.statistic.rawValue:
-    guard let statisticMessage = message as? BLStatisticMessage else { return }
-    DispatchQueue.main.async { [weak self] in
-        guard let self = self else { return }
-        let viewCount = String(statisticMessage.totalViewers ?? 0)
-        let likeCount = String(statisticMessage.totalLikes ?? 0)
-        
-        // Promo code update (related to live shopping)
-        print(statisticMessage?.promoCode)
-        print(statisticMessage?.promoCodeDescription)
-}
+func beliveAudienceManager(manager: BeLiveAudienceManager, statisticDidUpdate message: BLStatisticMessage) {
+        self.lastStatisticMessage = message
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+
+            self.viewCountLabel.text = String(message.totalViewers ?? 0) // view count
+            self.likeCountLabel.text = String(message.totalLikes ?? 0) // like count
+
+            self.promotionCodeLabel.text = self.lastStatisticMessage?.promoCode // promo code update
+            self.promotionCodeDescriptionLabel.text = self.lastStatisticMessage?.promoCodeDescription // promo code description
+
+            // Average bitrate and max bitrate
+            self.bitrate = message.bitRate
+            self.maxBitrate = message.maxBitRate
+        }
+    }
+
 ```
 
 ### Step **6 :  Handle Stream ended by Host**
 
-In case live stream is ended by host, viewer will receive following message type
+In case live stream is ended by host, viewer will receive following callback
 
 ```swift
- case BLMessageType.hostStreamEnd.rawValue:
-            print("Host ended this stream!!!")
-            // Update UI
-            self.viewerManager?.release()
+func beliveAudienceManager(manager: BeLiveAudienceManager, streamDidEnd streamStatistic: BLStreamStatistic) {
+
+    // Update UI and get final stream statistics from streamStatistic object. We suggest to call leaveStream API too.
+
+}
 ```
 
 ### Step **7 :  Recorded video playback**
 
-SDK supports utility methods for playback of recorded stream. `stream.status` for recorded streams will be 2 and `isRecorded` field will be true . 
+SDK supports utility methods for playback of recorded stream. `stream.status` for recorded streams will be `2` and `isRecorded` field will be `true` . 
 Refer to below API
 
 ```swift
@@ -813,7 +801,7 @@ self.viewerManager?.seak(to: 10.0) { success in
 }
 ```
 
-Delegate methods for player status&#x20;
+Delegate methods for player status.
 
 ```swift
 func blViewerManager(manager: BLViewerManager, 
@@ -861,9 +849,9 @@ self.viewerManager.stopPIP()
 
 ## Stream Health Monitoring (Beta)
 
-SDK provides videoBitrate monitoring during stream. It determines the quality of stream and an indication of host's network conditions. `didReceiveStreamMessage` callback returns average `bitrate` in BLMessageType.statistic type. See below for all parameters of BLStaticMessage
+SDK provides videoBitrate monitoring during stream. It determines the quality of stream and an indication of host's network conditions. `didReceiveStreamMessage` callback returns average `bitrate` and `maxBitRate` in `statisticDidUpdate` call back of `BeLiveAudienceManagerDelegate` delegate. You can compare both values to notify users users of low network. We suggest that bitrate should be atleast 2.5 times of maxBitRate.
 
-``
+See below for all parameters of BLStaticMessage
 
 **Statistic Message**
 

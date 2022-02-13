@@ -774,7 +774,7 @@ override fun onPictureInPictureModeChanged(
 
 ## Stream Health Monitoring (Beta)
 
-SDK provides videoBitrate monitoring during stream. It determines the quality of stream and an indication of host's network conditions. `onStatistics` callback returns average bitrate with parameter `actualBitrate`
+SDK provides videoBitrate monitoring during stream. It determines the quality of stream and an indication of host's network conditions. `onStatistics` callback returns average bitrate with parameter `actualBitrate` and max bitrate with parameter `maxBitRate`. You can compare both values to notify users users of low network. We suggest that actualBitrate should be atleast 2.5 times of maxBitRate.
 
 ```kotlin
 data class BlsLiveStreamStatistics(
