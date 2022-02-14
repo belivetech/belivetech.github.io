@@ -526,7 +526,33 @@ fun onObsCreated(slug: String) {
 
 For more details, check `HostActivity` in sample app. You can find default dialog implementation for OBS stream flow.
 
-## Watch your first live stream&#x20;
+### Utility Methods 
+
+#### Switch Camera 
+
+Use following method to switch between front and back camera.
+
+```kotlin
+blsLiveStreamManager.switchCamera()
+```
+Default camera is front camera.
+
+### Enable beautyfilter 
+
+Enable or disable beauty filter using following methods
+
+```kotlin
+blsLiveStreamManager.turnOnBeautyFilter()
+blsLiveStreamManager.turnOffBeautyFilter()
+```
+
+You can check whether beauty filter is enabled by using below boolean 
+
+```kotlin
+var isBeautyEnable =  blsLiveStreamManager.isBeautyFilterOn()
+```
+
+## Watch your first live stream
 
 Summary of the classes for Viewer:
 
