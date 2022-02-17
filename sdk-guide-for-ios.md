@@ -38,8 +38,13 @@ You can use [CocoaPods](http://cocoapods.org) to install BeLive SDK by adding fo
 platform :ios, '11.0'
     target 'BeliveSample' do
     use_frameworks!
+     # Core
     pod 'BeLiveCore', :path => '../framework/BeLiveCore'
+
+    # Audience
     pod 'BeLiveAudience', :path => '../framework/BeLiveAudience'
+
+    # Broadcaster
     pod 'BeLiveBroadcaster', :path => '../framework/BeLiveBroadcaster'
     # we have to specify correct ksy version because we can't set this in podspec
     pod 'libksygpulive', :git => 'https://github.com/ksvc/KSYLive_iOS.git', :tag => 'v3.0.5'
@@ -52,8 +57,8 @@ Each of the `podspec` file have their dependencies added in respective files.
 
 **Alternative Approach**
 
-1. Extract the contents of the framework. There will be three `xcframeworks` : `BeLiveCore.xcframework` , BeLiveAudience.`xcframework` and `BeLiveBroadcaster.xcframwork`
-2. Embed  all three xcframework by dragging it into the Frameworks, Libraries, and Embedded Content section of the General tab for your application target.
+1. Extract the contents of the framework. There will be three BeLive`xcframeworks` : `BeLiveCore.xcframework`, BeLiveAudience.`xcframework` and `BeLiveBroadcaster.xcframwork` as well as third party `xcframeworks` which should be added too.
+2. Embed  all xcframework by dragging it into the Frameworks, Libraries, and Embedded Content section of the General tab for your application target.
 
 Belive iOS SDK uses following open source libraries which must be added in Podfile with specific versions
 
@@ -69,7 +74,7 @@ Belive iOS SDK uses following open source libraries which must be added in Podfi
 
 ```
 
-Run `pod install` . Open your `xcworkspace` and import BeLive SDK\
+Run `pod install` . Open your `xcworkspace` and import BeLive SDK.
 
 
 ```swift
@@ -81,39 +86,30 @@ import BeLiveBroadcaster
 
 ## Start your first live stream
 
-Before starting or playing back live stream, SDK must be initialized with `license key.`Obtain license key from business team by providing your app's bundle Id.
+Before starting or playing back live stream, SDK must be initialized with `license.json` file. Obtain license file from business team by providing your app's bundle Id.
 
 ### Step 1: Initialize SDK
 
-First step is to **verify license key** and expiry time of SDK. Add following code in `didFinishLaunchingWithOptions` of AppDelegate or `viewDidLoad` of ViewController.&#x20;
+First step is to **verify license key** and expiry time of SDK. Add `license.json` file in root directory which you have obtained from our business developement team. We have provided one such file in sample app with 14 days validity. Add following code in `didFinishLaunchingWithOptions` of AppDelegate or `viewDidLoad` of ViewController.
 
 ```swift
 func application(_ application: UIApplication, didFinishLaunchingWithOptions 
     launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Init BeLive SDK with License Key and Domain
+        // Init BeLive SDK with demo environment
         BeLiveSDK.shared.initWith(
-            licenseKey: "license_key",
-            environment: .demo,
-            delegate: self
+            environment: .demo
         )
         // Custom environment.
-        let custom = BLEnvironmentConfiguration.init(apiDomain: "", 
-            wowzaHostDomain: "", 
-            wowzaViewerDomain: "")
+        // let custom = BLEnvironmentConfiguration.init(apiDomain: "")
         return true
     }
     
-extension AppDelegate: BeLiveSDKDelegate {
-    func sdkExpired() {
-        // This callback will be called only if Demo SDK is expired.
-    }
 }
 ```
 
 For SDK testing, use demo environment. For production environment, `apiDomain` will be provided.
 
-Nest step is to login which essentially is creating a session with Belive backend. There is slight difference between Host login and Viewer Login. Note that host login accounts are pre-generated while viewer accounts can be created using SDK API.\
-
+Nest step is to login which essentially is creating a session with Belive backend. There is slight difference between Host login and Viewer Login. Note that host login accounts are pre-generated while viewer accounts can be created using SDK's SSO Login API.
 
 **Access BeLive API Services from BeLiveSDK singleton functions**
 
@@ -180,7 +176,6 @@ func loginGuest(deviceUdid: String,
 func logoutBeLive(completion: @escaping (BLAPIResult<Bool>) -> Void)
 ```
 
-\
 **Host / Broadcaster Login**
 
 ```kotlin
@@ -249,7 +244,7 @@ BeLiveSDK.shared.userService().loginGuest(deviceUdid: "deviceUdid")
         }
 ```
 
-**Logout**&#x20;
+**Logout**
 
 ```kotlin
  BeLiveSDK.shared.userService().logoutBeLive() {
@@ -291,7 +286,7 @@ BroadcastView controller should implement below delegates to receive state updat
 /// BeLive Broadcaster Manager Message Delegate
 public protocol BeLiveBroadcasterManagerMessageDelegate: AnyObject {
     func beLiveBroadcasterManagerDidJoinStreamChannel(manager: BeLiveBroadcasterManager)
-    func beLiveBroadcasterManager(manager: BeLiveBroadcasterManager, didFailedToJoinStreamChannel error: String)
+    func beLiveBroadcasterManager(manager: BeLiveBroadcasterManager, didFailToJoinStreamChannel error: String)
     func beLiveBroadcasterManager(manager: BeLiveBroadcasterManager,didReceivePeerMessage message: BLStreamMessage)
     func beLiveBroadcasterManager(manager: BeLiveBroadcasterManager, didReceiveStreamMessage message: BLStreamMessage)
     func beLiveBroadcasterManager(manager: BeLiveBroadcasterManager, userJoined userId: String)
@@ -442,17 +437,13 @@ func beLiveBroadcasterManager(kit: BeLiveBroadcasterManager, streamError error: 
 At the same time, host is connected to live chat channel. Refer to below delegate methods for success and failure case&#x20;
 
 ```swift
-func beLiveBroadcasterManagerDidJoinStreamChannel(
-                        manager: BeLiveBroadcasterManager) {
-    // TODO
+func beLiveBroadcasterManagerDidJoinStreamChannel(manager: BeLiveBroadcasterManager) {
+
     print("beLiveBroadcasterManagerDidJoinStreamChannel")
  }
 
-func beLiveBroadcasterManager(
-                    manager: BeLiveBroadcasterManager, 
-                    didFailedToJoinStreamChannel error: String) {
-    // TODO
-    print("didFailedToJoinStreamChannel :\(error)")
+func beLiveBroadcasterManager(manager: BeLiveBroadcasterManager, didFailToJoinStreamChannel error: String) {
+    print("didFailToJoinStreamChannel :\(error)")
 }
 ```
 
@@ -617,7 +608,7 @@ Summary of the classes for Viewer:
 * Player Callbacks : `BeLiveAudienceManagerPlayerDelegate`
 * Live Chat callbacks : `BeLiveAudienceManagerMessageDelegate`
 
-Refer to Initialize SDK (Viewer) section for initializing and create a session with BeLive API before proceeding to next step
+Refer to Initialize SDK (Viewer) section for initializing and create a session with BeLive API before proceeding to next step. You must login first before proceeding to next step.
 
 ### Step 1 : Register Stream playback delegates
 
@@ -625,7 +616,7 @@ Refer to Initialize SDK (Viewer) section for initializing and create a session w
 var viewerManager: BeLiveAudienceManager?
 func setupView() {
     // Init BeLive Audience Viewer Manager
-    self.viewerManager = BeLiveAudienceManager(renderView: self.playerView, stream: stream)
+    self.viewerManager = BeLiveAudienceManager(renderView: self.playerView, slug: slug)
     self.viewerManager?.delegate = self // BeLiveAudienceManager delegate
     self.viewerManager?.playerDelegate = self // BeLiveAudienceManagerPlayerDelegate
     self.viewerManager?.messageDelegate = self // BeLiveAudienceManagerMessageDelegate
@@ -633,28 +624,21 @@ func setupView() {
 ```
 
 Note that `playerView` is the UIView where you want to show video. Make sure that your View Controller has implemented above mentioned delegates.
+`slug` is the stream slug.
 
 ### Step 2 : Join Stream with slug
 
-To join stream, you need unique stream slug which is generated for each stream. Refer to below API for joining stream
+To join stream, you need unique stream slug which is generated for each stream. In Step 1 above, we have initiated join stream process. 
+Following delegate method will be called with stream object. 
 
 ```swift
-func joinWithSlug(slug: String) {
-
-        let streamService = BeLiveSDK.shared.streamService()
-        streamService.getStreamDetail(slug: slug) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-                case .ok(data: let stream):
-                    print(stream.title)
-                case .error(error: let error):
-                    print(error)
-            }
-        }
+func beliveAudienceManager(manager: BeLiveAudienceManager, didJoinStream stream: BLStream) {
+     print("Did join stream successfully")
 }
+
 ```
 
-Following delegate methods are called for success and failure case
+Following delegate methods are called to indicated that first video frame has loaded (Playback started) otherwise an error will be thrown with `playerDidFailWithError` callback.
 
 ```swift
 func beLiveAudienceManager(manager: BeLiveAudienceManager, 
@@ -669,7 +653,7 @@ func beLiveAudienceManager(manager: BeLiveAudienceManager,
         default:
             break
         }
-s}
+}
 
 func beLiveAudienceManager(manager: BeLiveAudienceManager, 
                     player: BLPlayerKit, 
@@ -689,8 +673,7 @@ func beLiveAudienceManager(manager: BeLiveAudienceManager, didJoinStreamChannel 
 }
 
 /// Failed to join chat channel 
-func beLiveAudienceManager(manager: BeLiveAudienceManager, 
-                    didFailedToJoinStreamChannel error: String) {
+func beLiveAudienceManager(manager: BeLiveAudienceManager, didFailToJoinStreamChannel error: String) {
     print("\(error)")
 }
 ```
@@ -752,10 +735,10 @@ func receiveNewMessage(message: BLStreamMessage)  {
 
 ### Step 5 : **Receive statistics update**
 
-Refer to `statisticDidUpdate` callback of `BeLiveAudienceManagerDelegate`.
+Refer to `didUpdateStatistic` callback of `BeLiveAudienceManagerDelegate`.
 
 ```swift
-func beliveAudienceManager(manager: BeLiveAudienceManager, statisticDidUpdate message: BLStatisticMessage) {
+func beliveAudienceManager(manager: BeLiveAudienceManager, didUpdateStatistic message: BLStatisticMessage) {
         self.lastStatisticMessage = message
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -779,9 +762,9 @@ func beliveAudienceManager(manager: BeLiveAudienceManager, statisticDidUpdate me
 In case live stream is ended by host, viewer will receive following callback
 
 ```swift
-func beliveAudienceManager(manager: BeLiveAudienceManager, streamDidEnd streamStatistic: BLStreamStatistic) {
+func beliveAudienceManager(manager: BeLiveAudienceManager, didEndStreamWith reason: BLStreamEndReason, streamStatistic: BLStreamStatistic) {
 
-    // Update UI and get final stream statistics from streamStatistic object. We suggest to call leaveStream API too.
+    // Update UI and get final stream statistics from streamStatistic object.
 
 }
 ```
@@ -849,7 +832,7 @@ self.viewerManager.stopPIP()
 
 ## Stream Health Monitoring (Beta)
 
-SDK provides videoBitrate monitoring during stream. It determines the quality of stream and an indication of host's network conditions. `didReceiveStreamMessage` callback returns average `bitrate` and `maxBitRate` in `statisticDidUpdate` call back of `BeLiveAudienceManagerDelegate` delegate. You can compare both values to notify users users of low network. We suggest that bitrate should be atleast 2.5 times of maxBitRate.
+SDK provides videoBitrate monitoring during stream. It determines the quality of stream and an indication of host's network conditions. `streamStatisticDidUpdate` callback returns average `bitrate` and `maxBitRate` for broadcaster in `BeLiveBroadcasterStreamKitDelegate` delegate. Meanwhile, same values are returned in call back method `didUpdateStatistic` of `BeLiveAudienceManagerDelegate` delegate. You can compare both values to notify users users of low network. We suggest that bitrate should be atleast 2.5 times of maxBitRate.
 
 See below for all parameters of BLStaticMessage
 
