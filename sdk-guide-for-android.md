@@ -76,15 +76,6 @@ BeLive Android SDK uses open source libraries. Add following dependencies to app
     implementation "com.squareup.retrofit2:converter-gson:2.9.0"
     implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"
     implementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'
-    
-    // Real-time chat
-    implementation 'com.github.agorabuilder:rtm-sdk:1.4.7'
-
-    // (Exclude below libraries if you are not using belive-host)
-    // Streamer : Libraries for pushing RTMP to streaming server for transcoding
-    implementation 'com.ksyun.media:libksylive-armv7a:3.0.4'
-    implementation "com.ksyun.media:libksylive-arm64:3.0.2"
-    implementation "com.ksyun.media:libksylive-x86:3.0.2"
 
     // exoplayer : Required for playback of streams
     implementation 'com.google.android.exoplayer:exoplayer:2.9.6'
