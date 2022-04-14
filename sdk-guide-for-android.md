@@ -187,12 +187,12 @@ provider.initBeLiveSdk(object : BeliveSdkInitProvider.ISDKInitStatus {
 // LbsImageLoaderUtil.registerImageLoader(ImageLoaderImpl())
 ```
 
-Next step is to initialize BeLive SDK for Android. There is slight difference between Host login and Viewer Login.  Note that host login accounts are pre-generated while viewer accounts can be created using SDK API\
-\
-**Host / Broadcaster**&#x20;
+Next step is to initialize BeLive SDK for Android. There is slight difference between Host login and Viewer Login.  Note that host login accounts are pre-generated while viewer accounts can be created using SDK API. Use `HostLoginBuilder` for SDK initialization and host login.
+
+**Host / Broadcaster**
 
 ```kotlin
-BeliveSdkInitialization.Builder(this)
+BeliveSdkInitialization.HostLoginBuilder(this)
     .setUsername(username)
     .setUserPassword(pass)
     .setInitCallback(object : BeliveSdkInitialization.BeliveSdkInitCallback {
@@ -219,12 +219,12 @@ BeliveSdkInitialization.Builder(this)
 ).build().init()
 ```
 
-Username and password for host / broadcaster will be provided (Contact business team). Only pre-registered hosts can start live. \
+Username and password for host / broadcaster will be provided (Contact business team). Only pre-registered hosts can start live. Use `DefaultLoginBuilder` for viewer login to link your existing users with BeLive Platform. \
 \
 **Viewer (SSO Login with unique userId and displayName)**
 
 ```kotlin
-BeliveSdkInitialization.Builder(this)
+BeliveSdkInitialization.DefaultLoginBuilder(this)
     .setUserId(uniqueUserId)
     .setUserDisplayName(displayName)
     .setInitCallback(object : BeliveSdkInitialization.BeliveSdkInitCallback {
@@ -250,7 +250,36 @@ BeliveSdkInitialization.Builder(this)
 }).build().init()
 ```
 
+SDK also provides `Guest Login` feature. 
 
+**Viewer (Guest Login)**
+
+
+```kotlin
+BeliveSdkInitialization.GuestLoginBuilder(this)
+    .setUserDisplayName(displayName)
+    .setInitCallback(object : BeliveSdkInitialization.BeliveSdkInitCallback {
+        override fun onFinished(status: BeliveInitStatus.Status, message: String?) {
+            // Make UI changes
+            when (status) {
+                BeliveInitStatus.Status.INITIALIZATION_SUCCESS -> {
+                    // Belive SDK is ready!
+
+                }
+                BeliveInitStatus.Status.INITIALIZATION_LOGIN_FAILED -> {
+                    // failed to login
+                }
+                BeliveInitStatus.Status.INITIALIZATION_REGISTER_FAILED -> {
+                    // failed to register
+                }
+                BeliveInitStatus.Status.INITIALIZATION_LOAD_CONFIG_FAILED -> {
+                    // load config failed
+                }
+            else -> { }
+            }
+        }
+}).build().init()
+```
 
 ### Step 2 : Register Stream callbacks and set broadcast config
 
@@ -526,6 +555,12 @@ Use following method to switch between front and back camera.
 ```kotlin
 blsLiveStreamManager.switchCamera()
 ```
+You can check camera orientation (Front or Back) by using below helper method
+
+```kotlin
+blsLiveStreamManager.switchCamera()
+```
+
 Default camera is front camera.
 
 ### Enable beautyfilter 
