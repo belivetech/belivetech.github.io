@@ -62,25 +62,6 @@ end
 
 Each of the `podspec` file have their dependencies added in respective files.
 
-**Alternative Approach (Carthage)**
-
-1. Extract the contents of the framework. There will be three BeLive`xcframeworks` : `BeLiveCore.xcframework`, BeLiveAudience.`xcframework` and `BeLiveBroadcaster.xcframwork` as well as third party `xcframeworks` which should be added too.
-2. Embed  all xcframework by dragging it into the Frameworks, Libraries, and Embedded Content section of the General tab for your application target.
-
-Belive iOS SDK uses following open source libraries which must be added in Podfile with specific versions
-
-```
-# BeLiveCore
-'Alamofire', '4.9.1'
-'AgoraRtm_iOS', '1.4.9'
-# BeLiveAudience 
-'libksygpulive'
-# BeLiveBroadcaster 
-'GPUImage', '0.1.7'
-'libksygpulive'
-
-```
-
 Run `pod install` . Open your `xcworkspace` and import BeLive SDK. If you want to use Audience/Viewer only, then you can skip adding `BeLiveBroadcaster` framework and required libraries.
 
 
@@ -90,6 +71,13 @@ import BeLiveCore
 import BeLiveAudience
 import BeLiveBroadcaster
 ```
+
+
+**Alternative Approach (Carthage)**
+
+1. Extract the contents of the framework. There will be three BeLive`xcframeworks` : `BeLiveCore.xcframework`, BeLiveAudience.`xcframework` and `BeLiveBroadcaster.xcframwork` as well as third party `xcframeworks` which should be added too.
+2. Embed  all xcframework by dragging it into the Frameworks, Libraries, and Embedded Content section of the General tab for your application target.
+
 
 ## Start your first live stream
 
