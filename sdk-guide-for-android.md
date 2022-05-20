@@ -51,13 +51,15 @@ app or module level `build.gradle` file
 **Release aar files**
 
 ```groovy
-    releaseImplementation (name:'belive-host-1.0.5.107-release', ext:'aar')
-    releaseImplementation (name:'belive-viewer-1.0.5.107-release', ext:'aar')
-    releaseImplementation (name:'belive-core-1.0.5.107-release', ext:'aar')
-    releaseImplementation (name:'belive-common-1.0.5.106-release', ext:'aar')
-    releaseImplementation (name:'belive-shopping-1.0.0.102-release', ext:'aar')
-    releaseImplementation (name:'belive-ui-1.0.0.101-release', ext:'aar')
+    releaseImplementation (name:'belive-host-1.0.6.113-release', ext:'aar')
+    releaseImplementation (name:'belive-viewer-1.0.6.114-release', ext:'aar')
+    releaseImplementation (name:'belive-core-1.0.6.117-release', ext:'aar')
+    releaseImplementation (name:'belive-common-1.0.5.107-release', ext:'aar')
+    releaseImplementation (name:'belive-shopping-1.0.0.103-release', ext:'aar')
+    releaseImplementation (name:'belive-ui-1.0.0.103-release', ext:'aar')
 ```
+
+> If you want to use Audience/Viewer only, then you can skip adding `belive-host` aar file.
 
 BeLive Android SDK uses open source libraries. Add following dependencies to app level `build.gradle` For detailed explanation about Third party libraries used in SDK, visit [Third Party Libraries](https://github.com/belivetech/Documentation/blob/master/android/Third-Party-Libs.md)
 
@@ -103,8 +105,8 @@ BeLive Android SDK uses open source libraries. Add following dependencies to app
 
 > You can skip libraries which are already added in your `build.gradle`. In case of any conflict, let us know and our team will check for compatibility with SDK.
 
-**Additional settings**\
-\
+**Additional settings**
+
 SDK requires additional configuration in module's `build.gradle`
 
 Obtain license key from business team by providing your package Id. Place license key in `app/src/main/assets` folder of your app module and name it `belive.license` Add following variables to app level `build.gradle`
