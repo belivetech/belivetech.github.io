@@ -16,7 +16,12 @@ The following operations are supported:&#x20;
 
 • Manage Live Shopping
 
-Latest version of Android SDK: 1.0.5 (Release Notes)
+Latest version of Android SDK: **1.0.6** (Release Notes)
+
+### Release - May 20, 2022 
+
+- Upgrade 3rd party libraries
+- Improvements and Bug fixes
 
 ## Getting Started
 
@@ -78,10 +83,10 @@ BeLive Android SDK uses open source libraries. Add following dependencies to app
     implementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'
 
     // exoplayer : Required for playback of streams
-    implementation 'com.google.android.exoplayer:exoplayer:2.9.6'
-    implementation 'com.google.android.exoplayer:exoplayer-dash:2.9.6'
-    implementation 'com.google.android.exoplayer:extension-rtmp:2.9.6'
-    implementation 'com.google.android.exoplayer:exoplayer-ui:2.9.6'
+    implementation 'com.google.android.exoplayer:exoplayer:2.15.1'
+    implementation 'com.google.android.exoplayer:exoplayer-dash:2.15.1'
+    implementation 'com.google.android.exoplayer:extension-rtmp:2.15.1'
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.15.1'
     implementation 'com.github.rubensousa:previewseekbar:2.0.0'
     implementation 'com.github.rubensousa:previewseekbar-exoplayer:2.8.1.0'
 

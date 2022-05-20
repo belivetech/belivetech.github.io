@@ -18,6 +18,13 @@ The following operations are supported
 
 Latest version of iOS SDK: 1.0.0 (Release Notes)
 
+### Release - May 20, 2022 
+
+- Upgrade 3rd party libraries
+- Removed un-necessary permissions from Sample plist
+- Reduce size of Audience Framework
+
+
 ## Getting Started
 
 ### Requirements
@@ -55,7 +62,7 @@ end
 
 Each of the `podspec` file have their dependencies added in respective files.
 
-**Alternative Approach**
+**Alternative Approach (Carthage)**
 
 1. Extract the contents of the framework. There will be three BeLive`xcframeworks` : `BeLiveCore.xcframework`, BeLiveAudience.`xcframework` and `BeLiveBroadcaster.xcframwork` as well as third party `xcframeworks` which should be added too.
 2. Embed  all xcframework by dragging it into the Frameworks, Libraries, and Embedded Content section of the General tab for your application target.
@@ -65,16 +72,16 @@ Belive iOS SDK uses following open source libraries which must be added in Podfi
 ```
 # BeLiveCore
 'Alamofire', '4.9.1'
-'AgoraRtm_iOS', '1.4.8'
+'AgoraRtm_iOS', '1.4.9'
 # BeLiveAudience 
-'AmazonIVSPlayer', '1.5.0'
+'libksygpulive'
 # BeLiveBroadcaster 
 'GPUImage', '0.1.7'
 'libksygpulive'
 
 ```
 
-Run `pod install` . Open your `xcworkspace` and import BeLive SDK.
+Run `pod install` . Open your `xcworkspace` and import BeLive SDK. If you want to use Audience/Viewer only, then you can skip adding `BeLiveBroadcaster` framework and required libraries.
 
 
 ```swift
@@ -100,7 +107,8 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions
             environment: .demo
         )
         // Custom environment.
-        // let custom = BLEnvironmentConfiguration.init(apiDomain: "")
+        // let customEnv = BLEnvironmentConfiguration.init(apiDomain: "https://customer-dev-api.belive.sg")
+        // BeLiveSDK.shared.initWith(environment: .custom(customEnv))
         return true
     }
     
