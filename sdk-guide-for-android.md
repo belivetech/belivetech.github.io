@@ -16,7 +16,14 @@ The following operations are supported:&#x20;
 
 • Manage Live Shopping
 
-Latest version of Android SDK: **1.0.6** (Release Notes)
+Latest version of Android SDK: **1.0.7** 
+
+## Release Notes
+
+### Release - June 7, 2022
+
+- Add displayName to the login request for the default login type
+- Update Belive sdk to v1.0.7.118
 
 ### Release - May 20, 2022 
 

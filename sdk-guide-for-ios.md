@@ -16,7 +16,14 @@ The following operations are supported
 
 • Manage Live Shopping
 
-Latest version of iOS SDK: 1.0.0 (Release Notes)
+Latest version of iOS SDK: 1.0.0
+
+## Release Notes
+
+### Release - June 7, 2022 
+
+- Expose function to set player scaling mode setScalingMode(_ mode: BLPlayerScaleMode)
+Set aspectFill for full screen. Default mode is aspectFit
 
 ### Release - May 20, 2022 
 
