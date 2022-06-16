@@ -30,3 +30,11 @@ en:
     children:
       - title:  List Streams
         url:    api-list-streams.html
+
+  
+  - title:      Moderation
+    children:
+      - title:  CMS
+        url:    moderation-cms.html
+      - title:  Moderation API
+        url:    moderation-sdk-api.html

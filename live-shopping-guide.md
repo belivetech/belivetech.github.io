@@ -2,7 +2,7 @@
 title: Live Shopping Guide
 ---
 
-Live shopping products can be configured in following two ways&#x20;
+Live shopping products can be configured in following two ways
 
 * Content Management System (CMS)
 * Upload and managed products using iOS and Android SDK API (Refer to respective guides)
@@ -17,9 +17,9 @@ Find below comprehensive guide for CMS.
 
 ### Setting up products
 
-1. Login to CMS using provided credentials&#x20;
+1. Login to CMS using provided credentials
 2. Click on Users in the left navigation.
-3. Click on the shopping cart button to add / edit / deactivate products.&#x20;
+3. Click on the shopping cart button to add / edit / deactivate products.
 4. Verify all the products, before the host can go live. All active products will be exported to live stream. For product images, we recommend size of `400x400 pixels`
 
 Click Shopping cart button on right
@@ -41,7 +41,7 @@ Verify activated products and Go Live!
 
 ### Manage products during live broadcast
 
-Go to Live Broadcast section in left menu. Click on shopping cart next to live stream. You can edit product information during live stream. After editing product, click on save. You can also mark product to be out of stock during live. It will be reflected on both host / broadcaster and Viewer side using SDK API.&#x20;
+Go to Live Broadcast section in left menu. Click on shopping cart next to live stream. You can edit product information during live stream. After editing product, click on save. You can also mark product to be out of stock during live. It will be reflected on both host / broadcaster and Viewer side using SDK API.
 
 Live Broadcast section
 

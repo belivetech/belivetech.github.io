@@ -3,64 +3,13 @@ title: List Streams
 ---
 
 To access the stream list, the request needs to be made to the endpoint: `/api/users/streams`  This requires a `POST` request 
-which needs an authorization token and a username.  To get those data, we have to do following steps 
+which needs `beliveLicenseKey` and a username.  To get those data, we have to do following steps 
+ 
 
+### beliveLicenseKey
 
-1. first do a login(either guest or BeLive login), that will give us the authorization token.  
-2. Use `authorization token` for list streams api.  
+Make sure that have `beliveLicenseKey` value. It should be provided for SDK's testing and production environment.
 
-### BeLive Login 
-
-BeLive login is accessible as a `POST` request at this endpoint: `/api/users/belive-login`.  Provide the following data in body as 
-JSON:
-
-```json
-{
-  "beliveId": "string",
-  "displayName": "string",
-  "deviceUdid": "string",
-  "deviceType": 2,
-  "latitude": 0,
-  "longitude": 0
-}
-```
-
-`beliveId` is required. `deviceType=2` indicates that it is web client.
-
-In the headers, provide the language data: `0`, and your BeLive license key.  
-
-`cURL` example.
-
-```bash
-curl --location --request POST 'https://SDK_BASE_URL/api/users/belive-login' \
---header 'Content-Type: application/json' \
---header 'language: 0' \
---header 'beliveLicenseKey: belive_license_key' \
---data-raw '{
-  "beliveId": "beliveid",
-  "displayName": "optional",
-  "deviceUdid": "optional",
-  "deviceType":2,
-  "latitude": 0,
-  "longitude": 0
-}'
-
-```
-
-In the return data, you will receive the information regarding the user session under the `data` key.  
-The most important for the next step are the following:
-
-```json
-{
- "data":
-  {
-   "accessToken": "string",
-    "expires": "string"
-  }
-}
-```
-
-You can also use guest login endpoint: `/api/users/guest-login` to generate `accessToken` and use in next step.
 
 ### List Streams
 
@@ -76,13 +25,9 @@ JSON:
 ```
 
 
-The userName field is the userName of the host that can be filtered by, and this field is `required`, if not provided, the data will be empty. 
+The userName field is the userName of the host that can be filtered by, and this field is `required`, if not provided, the data will return most recent streams. 
 
-For the header,  provide the language data: `0`, and your BeLive license key as well as the Authorization field in this format:
-```
-Authorization: Bearer {accessToken}
-```
-Where accessToken is the accessToken field received in **BeLive Login**
+For the header,  provide the language data: `0`, and your BeLive license key.
 
 `cURL` example:
 
@@ -92,7 +37,6 @@ curl --location --request POST 'https://SDK_BASE_URL/api/users/streams' \
 --header 'Content-Type: application/json' \
 --header 'language: 0' \
 --header 'beliveLicenseKey: belive_license_key' \
---header 'Authorization: Bearer access_token' \
 --data-raw '{
   "userName": "hostusername",
   "nextId": 0,
