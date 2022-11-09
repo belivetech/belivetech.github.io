@@ -16,6 +16,8 @@ The following operations are supported
 
 • Manage Live Shopping
 
+• Like Stream
+
 Latest version of iOS SDK: 1.0.0
 
 ## Release Notes
@@ -832,6 +834,35 @@ self.viewerManager.startPIP()
 /// Hide PIP. Call this when app enters foreground 
 self.viewerManager.stopPIP()
 ```
+
+## Like Stream
+
+Belive SDK supports two like count modes.
+
+#### Unique like count
+This is the default mode. Like count is unique for each viewer per stream.
+
+#### Non-unique like count
+In this mode, the like count is buffered when calling likeStream API, after a short amount of time, the total like count will be pushed to the server.
+To enable this mode. call disableUniqueLikeCount API. This method should be called when initializing the `BeLiveViewerManger`.
+
+```swift
+BeLiveViewerManager.disableUniqueLikeCount()
+````
+
+To check if the current mode is unique or non-unique, call isUniqueLikeCount API:
+
+```swift
+BeLiveViewerManager.isUniqueLikeCount()
+````
+
+To get the current buffering like count. call getBufferingLikeCount API. Calling this method in unique like count mode will return 0.
+
+```swift
+BeLiveViewerManager.getBufferingLikeCount()
+````
+
+Refer to sample app for more details.
 
 ## Stream Health Monitoring (Beta)
 
