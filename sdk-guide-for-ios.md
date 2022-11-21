@@ -1044,3 +1044,55 @@ func getProductsInStream() {
     }
 ```
 
+## Live Polling
+
+Belive SDK added a new Polling feature. This increases the viewer engagement and helps host gather feedbacks about products or services.
+Add polling module to project via Cocoapods:
+
+```ruby
+pod 'BeLiveAudiencePolling', :path => '../framework/BeLiveAudiencePolling'
+pod 'BeLiveBroadcasterPolling', :path => '../framework/BeLiveBroadcasterPolling'
+```
+
+**Host:**
+
+Set Polling Delegate:
+
+```swift 
+BeLiveBroadcasterManager.setPollingDelegate(delegate: BeLiveBroadcasterPollingDelegate?)
+```
+Below delegate methods will be called when host/broadcaster receives either poll or poll result. 
+
+```swift
+public protocol BeLiveBroadcasterPollingDelegate : NSObjectProtocol {
+    func beLiveBroadcasterManager(manager: BeLiveBroadcasterManager, didShowPoll poll: BLPoll)
+    func beLiveBroadcasterManager(manager: BeLiveBroadcasterManager, didShowPollResult poll: BLPoll)
+}
+```
+
+**Viewer:**
+
+Set Polling Delegate:
+
+```swift
+BeLiveAudienceManager.setPollingDelegate(delegate: BeLiveAudiencePollingDelegate?)
+```
+
+Below delegate methods will be called when host/broadcaster receives either poll or poll result. There is also delegate method for submitting poll as well as error case.
+
+```swift
+public protocol BeLiveAudiencePollingDelegate : NSObjectProtocol {
+    func beLiveAudienceManager(manager: BeLiveAudienceManager, didShowPoll poll: BLPoll)
+    func beLiveAudienceManager(manager: BeLiveAudienceManager, didShowPollResult poll: BLPoll)
+    func beLiveAudienceManager(manager: BeLiveAudienceManager, didSubmitPoll poll: BLPoll, withOptionId optionId: Int)
+    func beLiveAudienceManager(manager: BeLiveAudienceManager, didReceiveError error: Error)
+}
+```
+
+Submit poll:
+
+```swift
+BeLiveAudienceManager.submitPoll(poll: BeLiveCore.BLPoll, optionId: Int)
+```
+
+Note that submit poll is only available for viewer side.

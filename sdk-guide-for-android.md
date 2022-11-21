@@ -18,6 +18,8 @@ The following operations are supported:&#x20;
 
 • Like Stream
 
+• Live Polling
+
 Latest version of Android SDK: **1.0.7** 
 
 ## Release Notes
@@ -381,9 +383,9 @@ Below, we check whether the user has already granted permissions and, if not, as
 
 ### Step 4 : Start Live Broadcast Session
 
-SDK requires stream title as mandatory field to start stream. \
-\
-API&#x20;
+SDK requires stream title as mandatory field to start stream. 
+
+API
 
 ```kotlin
 fun startStream(title: String, 
@@ -1058,3 +1060,52 @@ fun onLiveShoppingError(errorInfo: ErrorInfo)
 fun onPromoCodeUpdated(promoCodeData: PromoCodeData)
 
 ```
+
+## Live Polling
+
+Belive SDK 1.2.0 added a new Polling feature. This increases the viewer engagement and helps host gather feedbacks about products or services.
+The Polling feature is added as an external Belive Module `belive-polling`.
+
+Update your app's build.gradle to include the new belive-polling module.
+
+```gradle
+implementation (name:'belive-polling-release', ext:'aar')
+```
+
+To start listening to the Polling event changes. Create a new `BlsPollingManager` object and set a Polling callback to it.
+After that, attach that newly created Polling Manager to a `BlsLiveStreamManager` (host side) or `BlsLiveStreamViewerManager` (viewer side).
+
+
+```kotlin
+// this refers to an activity or a fragment
+val pollingManager = BlsPollingManager(this)
+pollingManager.setCallback(blsPollingCallback)
+blsLiveStreamManager.attachPollingManager(pollingManager)
+```
+
+The `BlsPollingCallback` provides 4 methods to implementation.
+
+`onPollReceived(poll: PollModel)` : 
+Triggered to notify a poll is in active status.
+For record stream, this method might be triggered if there is a poll during it's live version.
+
+`onPollResult(poll: PollModel)` :
+Triggered to notify a poll is in completed (ended). The param poll now will contain the poll result.
+For record stream, this method might be triggered if there is a poll during it's live version.
+
+`onAnswerSubmitted(poll: PollModel, optionId: Int)` :
+Triggered to notify the poll request has been submitted successfully.
+
+`onPollError(code: Int, message: String)` :
+Triggered when an error happen during poll actions.
+The Error codes might be one of the following codes:
+ApiResponseCode.AUTHORIZATION_HAS_BEEN_DENIED (401),
+BlsErrorCode.INVALID_STATE], BlsErrorCode.INVALID_PARAM, BlsErrorCode.UNSTABLE_NETWORK and other codes with ERROR_CODE_POLL_ prefix.
+
+The `BlsPollingManager` provides some APIs to interact with the Polling but you should only take care of the submitPollAnswer API.
+
+`submitPollAnswer(pollModel: PollModel, optionId: Int)` : 
+The optionId must be one of these value: PollModel.OPTION_ID_1, PollModel.OPTION_ID_2, PollModel.OPTION_ID_3
+Tips: The PollModel provides an ultility method getOptionsAsList() which returns a list of PollModel.Option with their IDs filled already.
+
+Find more details in Android sample app.
