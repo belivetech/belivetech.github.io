@@ -62,3 +62,5 @@ Archived streams
 [Edit stream products in archived streams and click save
 
 ![Edit stream products in archived streams and click save](assets/images/live_shop8.png)
+
+<iframe  frameborder="0" allow="fullscreen; autoplay;"  src="https://lora-player.belive.sg?sid=3221cbd7-4ccb-430d-a55e-88e8266e95d8&embed=1&autoplay=true"  class="lora-iframe"> </iframe>
