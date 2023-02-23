@@ -64,10 +64,10 @@ Archived streams
 ![Edit stream products in archived streams and click save](assets/images/live_shop8.png)
 
 <div id="WATCH_NOW"></div>
-<script src="https://lora-sdk.belive.sg/player-widget/latest/player.min.js"></script>
+<script src="https://lora-sdk.belive.sg/player-widget/staging/player.min.js"></script>
 
 <script>
     const player = BeLivePlayerWidget.initialize({
-   showId: "3221cbd7-4ccb-430d-a55e-88e8266e95d8",
+   showId: "adf26583-06e7-4641-93c3-d0585d853cc7",
    container: document.getElementById("WATCH_NOW"),
 });
