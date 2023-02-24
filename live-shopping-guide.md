@@ -62,3 +62,5 @@ Archived streams
 [Edit stream products in archived streams and click save
 
 ![Edit stream products in archived streams and click save](assets/images/live_shop8.png)
+
+<div id="WATCH_STREAM"></div><script src="https://lora-sdk.belive.sg/player-widget/staging/player.min.js"></script><script> const player = BeLivePlayerWidget.initialize({    showId: "8a467150-dc16-4eab-ad7f-5048ff60dd2e",    container: document.getElementById("WATCH_STREAM"), });</script>
