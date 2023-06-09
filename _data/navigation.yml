@@ -25,6 +25,8 @@ en:
         url:    sdk-guide-for-ios.html
       - title:  Live Shopping Guide
         url:    live-shopping-guide.html
+      - title:  Short Video SDK Guide for Web
+        url:    short-video-sdk-guide-for-web.html
 
   - title:      API References
     children:
