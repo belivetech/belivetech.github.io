@@ -27,10 +27,12 @@ BeLive SDK lets you focus on building your own custom application and audience e
 
 Follow our handy guides to get started on the basics as quickly as possible:
 
-[SDK Guide for Web](sdk-guide-for-web.md)
+[SDK Guide for Web](sdk-guide-for-web.html)
 
-[SDK Guide for Android](sdk-guide-for-android.md)
+[SDK Guide for Android](sdk-guide-for-android.html)
 
-[SDK Guide for iOS](sdk-guide-for-ios.md)
+[SDK Guide for iOS](sdk-guide-for-ios.html)
 
-[Live Shopping Guide](live-shopping-guide.md)
+[Live Shopping Guide](live-shopping-guide.html)
+
+[Short Video SDK Guide for Web](short-video-sdk-guide-for-web.html)
