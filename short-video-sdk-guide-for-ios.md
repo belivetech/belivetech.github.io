@@ -41,6 +41,7 @@ Drag `BeLiveCore.xcframework` and `BeLiveShortVideo.xcframework` into **Framewor
 You may encounter the build error or get crash: `dyld: Symbol not found` on Xcode 12 and above when using `xcframework` . Here is [workaround](https://github.com/Carthage/Carthage/blob/master/Documentation/Xcode12Workaround.md) to fix this issue
 
 - Create file `carthage.sh` in your root project folder with this content
+
 ```ruby
 # carthage.sh
 # Usage example: ./carthage.sh build --platform iOS
