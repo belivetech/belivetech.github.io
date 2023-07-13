@@ -78,6 +78,7 @@ For Grid layout, you can customize the below UI components/attrs:
 - Play button
 - Item's corner radius
 - Video thumbnail scale mode
+
 ```kotlin
         val gridLoCf = ShortVideoGridLayout.createDefaultConfig(this)
         gridLoCf.ratio = "16:9"
@@ -97,6 +98,7 @@ For Grid layout, you can customize the below UI components/attrs:
             cf.imageScaleMode = ImageView.ScaleType.CENTER
         }
 ```
+
 ### Carousel layout
 Carousel layout brings a video player feature to the ShortVideoView.
 When using this layout, it requires a parent container and this container should be a ConstraintLayout or FrameLayout to avoid unwanted layout behaviors when switching from Fullscreen and Compact mode.
@@ -429,6 +431,7 @@ It means, even the autoLoop is on, the playlist might not be repeated if a video
 #### Auto play
 By default, the video autoPlay (Carousel and Main player) flag is controlled by the CMS.
 You can override this behavior by explicitly setting it in the SDK.
+
 ```kotlin
         val playerCf = PlayerItemConfiguration().apply {
             enableAutoPlay()
